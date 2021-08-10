@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "mobile"
+		},
+		{
+			"path": "web"
+		}
+	],
+	"settings": {}
+}
