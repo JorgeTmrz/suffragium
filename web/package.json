@@ -46,6 +46,7 @@
     ]
   },
   "devDependencies": {
+    "@types/react-router": "^5.1.16",
     "@types/styled-components": "^5.1.12"
   }
 }
