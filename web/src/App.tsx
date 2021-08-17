@@ -1,9 +1,13 @@
+// import { LoginPage } from './pages/auth/LoginPage';
 
+import "./App.css"
+import Dashboard from './pages/admin/Dashboard';
+import { GlobalProvider } from './components/GlobalContext';
 function App() {
   return (
-    <div className="App">
-        <h1>Hello world</h1>
-    </div>
+    <GlobalProvider>
+      <Dashboard/>
+    </GlobalProvider>
   );
 }
 
