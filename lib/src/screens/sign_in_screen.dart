@@ -2,15 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
-import 'package:votation_app/src/providers/theme_provider.dart';
 import 'package:votation_app/src/widgets/text_form_fields.dart';
 
 class SignInScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Provider.of<ThemeProvider>(context);
     final double _h = MediaQuery.of(context).size.height;
     final double _w = MediaQuery.of(context).size.width;
 
