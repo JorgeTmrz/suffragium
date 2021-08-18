@@ -9,12 +9,12 @@ import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import Container from '@material-ui/core/Container';
-import Grid from '@material-ui/core/Grid';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import { mainListItems } from './helpers/listItems';
 import { DashboardStyles } from './helpers/DashboardStyles';
 import { HowToVote } from '@material-ui/icons';
+import { Settings } from './Settings';
 
 
 export default function Dashboard() {
@@ -68,9 +68,10 @@ export default function Dashboard() {
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
         <Container maxWidth="lg" className={classes.container}>
-          <Grid container spacing={3}>
+          {/* <Grid container spacing={3}>
             <h1>Hello World!</h1>
-          </Grid>
+          </Grid> */}
+          <Settings/>
         </Container>
       </main>
     </div>
