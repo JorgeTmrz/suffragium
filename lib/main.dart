@@ -11,6 +11,7 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
 
+  // Add other providers here to avoid context error
   runApp(
     MultiProvider(
       providers: [
