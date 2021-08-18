@@ -12,12 +12,14 @@ export const AppRouter = () => {
         <Router history={history}>
             <Switch>
                 <PublicRoute
+                    rest = {{}}
                     isAuthenticated={true}
                     Component={AuthRoutes}
                     exact
                     path="auth"
                 />
                 <PrivateRoute
+                    rest = {{}}
                     isAuthenticated={true}
                     Component={Dashboard}
                     exact
