@@ -11,7 +11,7 @@ export const PublicRoute = ({
         <Route
             {...rest}
             component={(props: Object) =>
-                isAuthenticated ? <Redirect to="/" /> : <Component {...props} />
+                isAuthenticated ? <Redirect to="/" /> : <Component {...props}/>
             }
         />
     );
