@@ -2,16 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class LoginScreen extends StatefulWidget {
-  @override
-  _LoginScreenState createState() => _LoginScreenState();
-}
-
-class _LoginScreenState extends State<LoginScreen> {
-
+class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-
     final double _h = MediaQuery.of(context).size.height;
     final double _w = MediaQuery.of(context).size.width;
 
@@ -22,7 +15,7 @@ class _LoginScreenState extends State<LoginScreen> {
           child: Align(
             alignment: Alignment.topCenter,
             child: Text(
-              'Bienvenido a Sufraggium', 
+              'Bienvenido a Sufraggium',
               style: GoogleFonts.montserrat(fontSize: 18),
             ),
           ),
@@ -42,31 +35,34 @@ class _LoginScreenState extends State<LoginScreen> {
             width: _w * 0.8,
             height: _h * 0.06,
             child: ElevatedButton(
-              child: Text("Iniciar sesión"),
-              style: ButtonStyle(
-                shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30)
-                  )
-                )
-              ),
-              onPressed: () => Navigator.pushReplacementNamed(context, 'signin')
-            ),
+                child: Text("Iniciar sesión"),
+                style: ButtonStyle(
+                  shape: MaterialStateProperty.all(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                  ),
+                ),
+                onPressed: () =>
+                    Navigator.pushReplacementNamed(context, 'signin')),
           ),
-          SizedBox(height: 17),
+          const SizedBox(height: 17),
           Container(
             width: _w * 0.8,
             height: _h * 0.06,
             child: ElevatedButton(
-              child: Text("Registrarse"),
-              style:  ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(Colors.indigo.shade200),
-                shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30)
-                  )
-                )
-              ),
-              onPressed: () => Navigator.pushReplacementNamed(context, 'signup')
-            ),
+                child: Text("Registrarse"),
+                style: ButtonStyle(
+                  backgroundColor:
+                      MaterialStateProperty.all(Colors.indigo.shade200),
+                  shape: MaterialStateProperty.all(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                  ),
+                ),
+                onPressed: () =>
+                    Navigator.pushReplacementNamed(context, 'signup')),
           ),
         ],
       ),

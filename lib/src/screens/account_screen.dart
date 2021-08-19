@@ -1,9 +1,9 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:votation_app/src/providers/auth_service.dart';
 import 'package:votation_app/src/providers/theme_provider.dart';
 
 class AccountScreen extends StatefulWidget {
@@ -13,17 +13,13 @@ class AccountScreen extends StatefulWidget {
 
 class _AccountScreenState extends State<AccountScreen> {
   late bool _isClicked;
-  final FirebaseAuth auth = FirebaseAuth.instance;
-
-  _onSignOut() async {
-    await auth.signOut();
-    Navigator.pushReplacementNamed(context, 'login');
-  }
+  late AuthService _auth;
 
   @override
   void initState() {
-    super.initState();
     _isClicked = true;
+    _auth = new AuthService();
+    super.initState();
   }
 
   void _isButtonClicked() => setState(() => _isClicked = !_isClicked);
@@ -44,9 +40,11 @@ class _AccountScreenState extends State<AccountScreen> {
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text('Cuenta',
-                style: GoogleFonts.montserrat(
-                    fontSize: 25, color: theme.currentTheme.iconTheme.color)),
+            Text(
+              'Cuenta',
+              style: GoogleFonts.montserrat(
+                  fontSize: 25, color: theme.currentTheme.iconTheme.color),
+            ),
             IconButton(
                 onPressed: () {
                   _isButtonClicked();
@@ -63,32 +61,43 @@ class _AccountScreenState extends State<AccountScreen> {
       body: Column(
         children: [
           Padding(
-            padding: EdgeInsets.only(top: 55.0),
+            padding: const EdgeInsets.only(top: 55.0),
             child: Container(
-                height: _h * 0.18,
-                decoration: BoxDecoration(
-                    image: DecorationImage(
-                        image: NetworkImage(
-                            "https://cdn5.vectorstock.com/i/thumb-large/66/14/default-avatar-photo-placeholder-profile-picture-vector-21806614.jpg")),
-                    shape: BoxShape.circle)),
+              height: _h * 0.18,
+              decoration: BoxDecoration(
+                  image: DecorationImage(
+                      image: NetworkImage(
+                          "https://cdn5.vectorstock.com/i/thumb-large/66/14/default-avatar-photo-placeholder-profile-picture-vector-21806614.jpg")),
+                  shape: BoxShape.circle),
+            ),
           ),
-          SizedBox(height: 15),
-          Text('Moises Tabar',
-              style: GoogleFonts.montserrat(fontSize: 25, letterSpacing: 0.5)),
-          SizedBox(height: 10),
+          const SizedBox(height: 15),
+          Text(
+            _auth.getUserDisplayName() ?? '',
+            overflow: TextOverflow.ellipsis,
+            softWrap: true,
+            maxLines: 1,
+            style: GoogleFonts.montserrat(fontSize: 25, letterSpacing: 0.5),
+          ),
+          const SizedBox(height: 10),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Icon(Icons.email_outlined, size: 35.0),
               SizedBox(width: 8),
-              Text('Moisestabar.013@gmail.com',
-                  style: GoogleFonts.montserrat(fontSize: 18))
+              Text(
+                _auth.getUserEmail() ?? '',
+                overflow: TextOverflow.ellipsis,
+                softWrap: true,
+                maxLines: 1,
+                style: GoogleFonts.montserrat(fontSize: 18),
+              ),
             ],
           ),
-          SizedBox(height: 30),
+          const SizedBox(height: 30),
           Expanded(
             child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 10),
+              padding: const EdgeInsets.symmetric(horizontal: 10),
               child: ListView(
                 physics: BouncingScrollPhysics(),
                 children: [
@@ -111,16 +120,18 @@ class _AccountScreenState extends State<AccountScreen> {
                         style: GoogleFonts.montserrat(fontSize: 16)),
                     subtitle: Text('Cerrar sesión',
                         style: GoogleFonts.montserrat(fontSize: 20)),
-                    // trailing: FaIcon(FontAwesomeIcons.chevronRight, size: 20),
-                    onTap: () => _onSignOut(),
+                    onTap: () => _auth.onSignOut(context),
                   ),
                   SizedBox(height: _h / 5),
                   TextButton(
-                      onPressed: () =>
-                          Navigator.popAndPushNamed(context, 'signin'),
-                      child: Text("Cerrar Sesión",
-                          style: GoogleFonts.montserrat(
-                              fontSize: 20, color: Colors.grey)))
+                    onPressed: () =>
+                        Navigator.popAndPushNamed(context, 'signin'),
+                    child: Text(
+                      "Cerrar Sesión",
+                      style: GoogleFonts.montserrat(
+                          fontSize: 20, color: Colors.grey),
+                    ),
+                  ),
                 ],
               ),
             ),

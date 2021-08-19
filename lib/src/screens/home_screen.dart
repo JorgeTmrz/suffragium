@@ -8,7 +8,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-
   late int _currentIndex;
 
   @override
@@ -21,9 +20,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-
     final double _h = MediaQuery.of(context).size.height;
-    
+
     final List<Widget> _screensToDisplay = [
       ListSessionScreen(),
       AccountScreen()
@@ -37,8 +35,10 @@ class _HomeScreenState extends State<HomeScreen> {
           onTap: _setCurrentIndex,
           elevation: 0.0,
           items: [
-            BottomNavigationBarItem(icon: FaIcon(FontAwesomeIcons.calendar), label: 'Sesiones'),
-            BottomNavigationBarItem(icon: FaIcon(FontAwesomeIcons.solidUserCircle), label: 'Cuenta')
+            const BottomNavigationBarItem(
+                icon: FaIcon(FontAwesomeIcons.calendar), label: 'Sesiones'),
+            const BottomNavigationBarItem(
+                icon: FaIcon(FontAwesomeIcons.solidUserCircle), label: 'Cuenta')
           ],
           iconSize: _h * 0.038,
         ),

@@ -2,51 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:votation_app/src/providers/auth_service.dart';
 import 'package:votation_app/src/widgets/text_form_fields.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
-class SignUpScreen extends StatefulWidget {
-  const SignUpScreen({Key? key}) : super(key: key);
-
-  @override
-  _SignUpScreenState createState() => _SignUpScreenState();
-}
-
-class _SignUpScreenState extends State<SignUpScreen> {
+class SignUpScreen extends StatelessWidget {
   final TextEditingController _emailController = new TextEditingController();
   final TextEditingController _passwordFirstController =
       new TextEditingController();
   final TextEditingController _passwordSecondController =
       new TextEditingController();
   final _formKey = GlobalKey<FormState>();
-  final FirebaseAuth auth = FirebaseAuth.instance;
-
-  _onSignUp(BuildContext context, String email, String password) async {
-    try {
-      await auth.createUserWithEmailAndPassword(
-        email: email,
-        password: password,
-      );
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'weak-password') {
-        print('The password provided is too weak.');
-      } else if (e.code == 'email-already-in-use') {
-        print('The account already exists for that email.');
-      }
-    } catch (e) {
-      print(e);
-    }
-  }
-
-  @override
-  void initState() {
-    auth.authStateChanges().listen((User? user) {
-      if (user != null) {
-        Navigator.pushReplacementNamed(context, 'home');
-      }
-    });
-    super.initState();
-  }
+  final AuthService _auth = new AuthService();
 
   @override
   Widget build(BuildContext context) {
@@ -140,7 +106,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             borderRadius: BorderRadius.circular(30)))),
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
-                        _onSignUp(context, _emailController.text,
+                        _auth.onSignUp(context, _emailController.text,
                             _passwordFirstController.text);
                       }
                     }),

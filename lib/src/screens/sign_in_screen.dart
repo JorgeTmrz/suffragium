@@ -1,47 +1,15 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:votation_app/src/providers/auth_service.dart';
 import 'package:votation_app/src/widgets/text_form_fields.dart';
 
-class SignInScreen extends StatefulWidget {
-  const SignInScreen({Key? key}) : super(key: key);
-
-  @override
-  _SignInScreenState createState() => _SignInScreenState();
-}
-
-class _SignInScreenState extends State<SignInScreen> {
+class SignInScreen extends StatelessWidget {
   final TextEditingController _emailController = new TextEditingController();
   final TextEditingController _passwordController = new TextEditingController();
   final _formKey = GlobalKey<FormState>();
-  final FirebaseAuth auth = FirebaseAuth.instance;
-
-  _onSignIn(BuildContext context, String email, String password) async {
-    try {
-      await auth.signInWithEmailAndPassword(
-        email: email,
-        password: password,
-      );
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'user-not-found') {
-        print('No user found for that email.');
-      } else if (e.code == 'wrong-password') {
-        print('Wrong password provided for that user.');
-      }
-    }
-  }
-
-  @override
-  void initState() {
-    auth.authStateChanges().listen((User? user) {
-      if (user != null) {
-        Navigator.pushReplacementNamed(context, 'home');
-      }
-    });
-    super.initState();
-  }
+  final AuthService _auth = new AuthService();
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +20,7 @@ class _SignInScreenState extends State<SignInScreen> {
       appBar: AppBar(
         elevation: 0,
         title: Padding(
-          padding: EdgeInsets.only(top: 18),
+          padding: const EdgeInsets.only(top: 18),
           child: Align(
             alignment: Alignment.topCenter,
             child: Text(
@@ -68,7 +36,7 @@ class _SignInScreenState extends State<SignInScreen> {
           child: Column(
             children: [
               Padding(
-                padding: EdgeInsets.all(19),
+                padding: const EdgeInsets.all(19),
                 child: SvgPicture.asset(
                   'assets/vote_login.svg',
                   width: _w / 2,
@@ -103,18 +71,22 @@ class _SignInScreenState extends State<SignInScreen> {
                   return null;
                 },
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               Container(
                 width: _w * 0.8,
                 height: _h * 0.06,
                 child: ElevatedButton(
-                    child: Text("Iniciar sesión"),
+                    child: const Text("Iniciar sesión"),
                     style: ButtonStyle(
-                        shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30)))),
+                      shape: MaterialStateProperty.all(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                      ),
+                    ),
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
-                        _onSignIn(context, _emailController.text,
+                        _auth.onSignIn(context, _emailController.text,
                             _passwordController.text);
                       }
                     }),
