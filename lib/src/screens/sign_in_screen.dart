@@ -20,7 +20,7 @@ class _SignInScreenState extends State<SignInScreen> {
 
   _onSignIn(BuildContext context, String email, String password) async {
     try {
-      UserCredential userCredential = await auth.signInWithEmailAndPassword(
+      await auth.signInWithEmailAndPassword(
         email: email,
         password: password,
       );

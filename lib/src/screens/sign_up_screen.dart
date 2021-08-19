@@ -23,7 +23,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   _onSignUp(BuildContext context, String email, String password) async {
     try {
-      UserCredential userCredential = await auth.createUserWithEmailAndPassword(
+      await auth.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
