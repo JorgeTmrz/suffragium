@@ -7,8 +7,10 @@ import {
     Button,
     TextField,
 } from "@material-ui/core";
-import React from "react";
+import React, { ChangeEvent } from "react";
 import Typography from "@material-ui/core/Typography";
+import { useState } from "react";
+import { AddOrEditUserModalStyles } from "../../helpers/UsersPageStyles";
 
 type AddOrEditUserModalProps = {
     id?: number;
@@ -22,6 +24,22 @@ export const AddOrEditUserModal = ({
     handleClose,
 }: AddOrEditUserModalProps) => {
     const currentAction = id ? "Editar" : "Crear";
+    const classes = AddOrEditUserModalStyles();
+
+    const [currentUser, setCurrentUser] = useState({
+        firstName: "",
+        lastName: "",
+        job: "",
+        period: new Date().getFullYear()
+    })
+
+    const handleInputChange = ({target: {value, name}}: ChangeEvent<HTMLInputElement>) => {
+        setCurrentUser((prevState) => ({
+            ...prevState,
+            [name]: value
+        }))
+    }
+
 
     return (
         <Dialog
@@ -33,31 +51,60 @@ export const AddOrEditUserModal = ({
             <DialogTitle>
                 <Typography variant="h5">{`${currentAction} Usuario`}</Typography>
             </DialogTitle>
-            <DialogContent>
-                <Grid container spacing={2}>
-                    <Grid xs={12}>
-                        <TextField
-                            fullWidth
-                            name="name"
-                            label="Nombre del Regidor"
-                        />
-                    </Grid>
-                    <Grid xs={5}>
-                        <TextField
-                            fullWidth
-                            type={"number"}
-                            name="period"
-                            label="Periodo de gestión"
-                        />
-                    </Grid>
-                    <Grid xs={5}>
-                        <TextField
-                            fullWidth
-                            type={"number"}
-                            name="period"
-                            label="Periodo de gestión"
-                        />
-                    </Grid>
+            <DialogContent >
+      <Grid container spacing={3}>
+        <Grid item xs={12} sm={6}>
+          <TextField
+            onChange={handleInputChange}
+            value={currentUser.firstName}
+            required
+            id="firstName"    
+            name="firstName"
+                    label="Nombres"
+                    fullWidth
+                    autoComplete="given-name"
+                />
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                <TextField
+                    onChange={handleInputChange}
+                    value={currentUser.lastName}
+                    required
+                    id="lastName"
+                    name="lastName"
+                    label="Apellidos"
+                    fullWidth
+                    autoComplete="family-name"
+                />
+                </Grid>
+                <Grid item sm={7} xs={12}>
+                <TextField
+                    onChange={handleInputChange}
+                    value={currentUser.job}
+                    required
+                    id="job"
+                    name="job"
+                    label="Circunscripción"
+                    fullWidth
+                />
+                </Grid>
+                <Grid item sm={5} xs={12}>
+                <TextField
+                    onChange={handleInputChange}
+                    value={currentUser.period}
+                    id="period"
+                    defaultValue={new Date().getFullYear()}
+                    type={"number"}
+                    name="period"
+                    label="Periodo"
+                    fullWidth
+                    InputProps={{
+                        endAdornment: (
+                            <span className={classes.adormentSpan}>{`Hasta ${JSON.parse(currentUser.period as unknown as string) + 4}`}</span>
+                        )
+                    }}
+                />
+                </Grid>
                 </Grid>
             </DialogContent>
             <DialogActions>

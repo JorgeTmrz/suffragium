@@ -15,6 +15,7 @@ import { mainListItems } from './helpers/listItems';
 import { DashboardStyles } from './helpers/DashboardStyles';
 import { HowToVote } from '@material-ui/icons';
 import { Settings } from './Settings';
+import { Users } from './Users';
 
 
 export default function Dashboard() {
@@ -71,7 +72,7 @@ export default function Dashboard() {
           {/* <Grid container spacing={3}>
             <h1>Hello World!</h1>
           </Grid> */}
-          <Settings/>
+          <Users/>
         </Container>
       </main>
     </div>
