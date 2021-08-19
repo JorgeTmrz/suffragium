@@ -6,6 +6,7 @@ import 'package:votation_app/src/providers/auth_service.dart';
 import 'package:votation_app/src/widgets/text_form_fields.dart';
 
 class SignUpScreen extends StatelessWidget {
+  final TextEditingController _fullNameController = new TextEditingController();
   final TextEditingController _emailController = new TextEditingController();
   final TextEditingController _passwordFirstController =
       new TextEditingController();
@@ -51,6 +52,21 @@ class SignUpScreen extends StatelessWidget {
                   FontAwesomeIcons.user,
                   color: Colors.indigo.shade400,
                 ),
+                hintText: 'Ingrese su nombre completo',
+                isPassword: false,
+                controller: _fullNameController,
+                valitador: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Por favor, introduzca su nombre';
+                  }
+                  return null;
+                },
+              ),
+              CustomTextFormFields(
+                prefixIcon: FaIcon(
+                  FontAwesomeIcons.envelope,
+                  color: Colors.indigo.shade400,
+                ),
                 hintText: 'Ingrese su correo electrónico',
                 isPassword: false,
                 controller: _emailController,
@@ -63,7 +79,7 @@ class SignUpScreen extends StatelessWidget {
               ),
               CustomTextFormFields(
                 prefixIcon: FaIcon(
-                  FontAwesomeIcons.user,
+                  FontAwesomeIcons.key,
                   color: Colors.indigo.shade400,
                 ),
                 hintText: 'Ingrese una contraseña',
@@ -97,16 +113,23 @@ class SignUpScreen extends StatelessWidget {
               ),
               SizedBox(height: 10),
               Container(
-                width: _w * 0.8,
+                width: _w - 46,
                 height: _h * 0.06,
                 child: ElevatedButton(
                     child: Text("Registrarse"),
                     style: ButtonStyle(
-                        shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30)))),
+                      shape: MaterialStateProperty.all(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                      ),
+                    ),
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
-                        _auth.onSignUp(context, _emailController.text,
+                        _auth.onSignUp(
+                            context,
+                            _fullNameController.text,
+                            _emailController.text,
                             _passwordFirstController.text);
                       }
                     }),

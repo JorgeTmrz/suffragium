@@ -35,13 +35,15 @@ class AuthService {
     }
   }
 
-  onSignUp(BuildContext context, String email, String password) async {
+  onSignUp(BuildContext context, String fullName, String email,
+      String password) async {
     try {
       await auth.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
       if (auth.currentUser != null) {
+        await auth.currentUser!.updateDisplayName(fullName);
         Navigator.pushReplacementNamed(context, 'home');
       }
     } on FirebaseAuthException catch (e) {
