@@ -6,14 +6,17 @@ class Preguntas {
     Preguntas({
       required this.preguntas,
       required this.limite,
+      required this.agenda
     });
 
     final List<Pregunta> preguntas;
     final int limite;
+    final String agenda;
 
     factory Preguntas.fromJson(Map<String, dynamic> json) => Preguntas(
         preguntas: List<Pregunta>.from(json["Preguntas"].map((x) => Pregunta.fromJson(x))),
         limite: json["limite"],
+        agenda: json["agenda"]
     );
 }
 

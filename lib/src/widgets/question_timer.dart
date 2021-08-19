@@ -10,8 +10,8 @@ class QuestionTimer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
           padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
@@ -32,7 +32,7 @@ class QuestionTimer extends StatelessWidget {
         ),
         SizedBox(height: 20),
         Text(
-          "Está de acuerdo con la propuesta de Eliminar el toque de queda?",
+          "Pregunta",
           style: GoogleFonts.montserrat(
             fontSize: 20, 
           )

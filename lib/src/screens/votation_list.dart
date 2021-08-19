@@ -15,11 +15,13 @@ class VotationList extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         elevation: 0.0,
-        title: Text(
-            'Sesión ordinaria #1: Agenda', style: GoogleFonts.montserrat(
-            fontSize: 20,
-            color: theme.currentTheme.iconTheme.color 
-          )
+        title: Consumer<Preguntas>(
+          builder: (_, question, child) => Text(
+              question.agenda, style: GoogleFonts.montserrat(
+              fontSize: 20,
+              color: theme.currentTheme.iconTheme.color 
+            )
+          ),
         ),
       ),
       body: Consumer<Preguntas>(
