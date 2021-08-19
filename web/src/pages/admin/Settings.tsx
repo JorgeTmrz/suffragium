@@ -1,6 +1,6 @@
 import { SettingsPageStyles } from "./helpers/SettingsPageStyles";
-import { Avatar } from "./components/SettingsPage/Avatar";
-import { SettingPageOptions } from "./components/SettingsPage/SettingPageOptions";
+import { Avatar } from "./components/settingsPage/Avatar";
+import { SettingPageOptions } from "./components/settingsPage/SettingPageOptions";
 import { Container } from "@material-ui/core";
 
 export const Settings = () => {
