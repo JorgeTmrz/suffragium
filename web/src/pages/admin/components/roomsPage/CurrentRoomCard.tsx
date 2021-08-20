@@ -41,7 +41,7 @@ export const CurrentRoomCard = () => {
                 <CardContent>
                     <Grid>Pregunta Actual 1 / 10</Grid>
                     <Grid className={classes.buttonGrid} alignContent="center">
-                        <Button fullWidth variant="outlined" color="primary">
+                        <Button fullWidth variant="contained" color="primary">
                             Entrar a la reunión
                         </Button>
                     </Grid>
