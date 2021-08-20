@@ -2,7 +2,7 @@ import { Container, Grid } from "@material-ui/core";
 import { useState } from "react";
 import { RightActionButton } from "../../components/RightActionButton";
 import { AddOrEditUserModal } from "./components/usersPage/AddOrEditUserModal";
-import { mockUsers } from "./components/usersPage/mockUsers";
+import { mockUsers } from "./helpers/mockUsers";
 import { UserCard } from "./components/usersPage/UserCard";
 
 export const Users = () => {
