@@ -1,5 +1,5 @@
 import React from "react";
-import { Redirect, Route } from "react-router";
+import { Redirect, Route } from "react-router-dom";
 import { RouteParams } from "./types/routeParams";
 
 export const PublicRoute = ({

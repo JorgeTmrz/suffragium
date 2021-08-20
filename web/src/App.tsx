@@ -1,14 +1,17 @@
 // import { LoginPage } from './pages/auth/LoginPage';
 
-import "./App.css"
-import Dashboard from './pages/admin/Dashboard';
-import { GlobalProvider } from './components/GlobalContext';
+import { BrowserRouter } from "react-router-dom";
+import "./App.css";
+import { GlobalProvider } from "./components/GlobalContext";
+import { AppRouter } from "./routes/AppRouter";
 function App() {
-  return (
-    <GlobalProvider>
-      <Dashboard/>
-    </GlobalProvider>
-  );
+    return (
+        <GlobalProvider>
+            <BrowserRouter>
+                <AppRouter />
+            </BrowserRouter>
+        </GlobalProvider>
+    );
 }
 
 export default App;

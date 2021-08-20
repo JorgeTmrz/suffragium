@@ -4,4 +4,5 @@ export interface RouteParams extends RouteProps {
     isAuthenticated: boolean;
     Component: any;
     rest: any | undefined;
+    exact?: boolean;
 }
