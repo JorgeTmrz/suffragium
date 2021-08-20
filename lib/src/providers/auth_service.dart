@@ -26,10 +26,12 @@ class AuthService {
       if (auth.currentUser != null) {
         Navigator.pushReplacementNamed(context, 'home');
       }
-    } on FirebaseAuthException catch (e) {
+    } 
+    on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         print('No user found for that email.');
-      } else if (e.code == 'wrong-password') {
+      } 
+      else if (e.code == 'wrong-password') {
         print('Wrong password provided for that user.');
       }
     }
@@ -46,13 +48,16 @@ class AuthService {
         await auth.currentUser!.updateDisplayName(fullName);
         Navigator.pushReplacementNamed(context, 'home');
       }
-    } on FirebaseAuthException catch (e) {
+    } 
+    on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         print('The password provided is too weak.');
-      } else if (e.code == 'email-already-in-use') {
+      } 
+      else if (e.code == 'email-already-in-use') {
         print('The account already exists for that email.');
       }
-    } catch (e) {
+    } 
+    catch(e){
       print(e);
     }
   }

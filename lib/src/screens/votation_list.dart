@@ -15,7 +15,7 @@ class VotationList extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         elevation: 0.0,
-        title: Consumer<Preguntas>(
+        title: Consumer<Votaciones>(
           builder: (_, question, child) => Text(
               question.agenda, style: GoogleFonts.montserrat(
               fontSize: 20,
@@ -24,7 +24,7 @@ class VotationList extends StatelessWidget {
           ),
         ),
       ),
-      body: Consumer<Preguntas>(
+      body: Consumer<Votaciones>(
         builder: (_, questions, child) => Column(
           children: [
             Expanded(
@@ -32,12 +32,7 @@ class VotationList extends StatelessWidget {
                 children: questions.preguntas.map((question) => Padding(
                   padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 5.3),
                   child: ListTile(
-                    leading: question.votos == 10 ? Icon(Icons.close_rounded) : FaIcon(FontAwesomeIcons.clock),
                     title: Text(question.titulo, style: GoogleFonts.montserrat(fontSize: 17)),
-                    subtitle: Text(
-                      "Votos: ${question.votos}/${questions.limite}",
-                      style: GoogleFonts.montserrat(fontSize: 16), 
-                    ),
                     onTap: () => Navigator.pushNamed(context, 'session'),
                     trailing: FaIcon(
                       FontAwesomeIcons.chevronCircleRight, 

@@ -1,36 +1,36 @@
 import 'dart:convert';
 
-Preguntas preguntasFromJson(String str) => Preguntas.fromJson(json.decode(str));
+Votaciones votacionesFromJson(String str) => Votaciones.fromJson(json.decode(str));
 
-class Preguntas {
-    Preguntas({
-      required this.preguntas,
-      required this.limite,
-      required this.agenda
-    });
+class Votaciones {
+  Votaciones({
+    required this.preguntas,
+    required this.agenda,
+    required this.estado,
+    required this.limite,
+  });
 
-    final List<Pregunta> preguntas;
-    final int limite;
-    final String agenda;
+  final List<Pregunta> preguntas;
+  final String agenda;
+  final String estado;
+  final int limite;
 
-    factory Preguntas.fromJson(Map<String, dynamic> json) => Preguntas(
-        preguntas: List<Pregunta>.from(json["Preguntas"].map((x) => Pregunta.fromJson(x))),
-        limite: json["limite"],
-        agenda: json["agenda"]
-    );
+  factory Votaciones.fromJson(Map<String, dynamic> json) => Votaciones(
+    preguntas: List<Pregunta>.from(json["preguntas"].map((x) => Pregunta.fromJson(x))),
+    agenda: json["agenda"],
+    estado: json["estado"],
+    limite: json["limite-preguntas"],
+  );
 }
 
 class Pregunta {
   Pregunta({
     required this.titulo,
-    required this.votos,
   });
 
   final String titulo;
-  final int votos;
 
   factory Pregunta.fromJson(Map<String, dynamic> json) => Pregunta(
     titulo: json["titulo"],
-    votos: json["votos"],
   );
 }

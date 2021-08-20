@@ -19,9 +19,9 @@ Future<void> main() async {
       providers: [
         ChangeNotifierProvider<ThemeProvider>(create: (_) => ThemeProvider(1)),
         ChangeNotifierProvider(create: (_) => PreguntasProvider()),
-        StreamProvider<Preguntas>(
+        StreamProvider<Votaciones>(
           create: (_) => PreguntasProvider().getPreguntas('Votación: Sesión Ordinaria #1'), 
-          initialData: Preguntas(limite: 0, preguntas: [], agenda: ""),
+          initialData: Votaciones(limite: 0, preguntas: [], agenda: "", estado: ''),
           catchError: (_, error) => throw error.toString(),
         ),
         ChangeNotifierProvider<SesionesProvider>(create: (_) => SesionesProvider()),

@@ -6,7 +6,6 @@ class SesionesProvider with ChangeNotifier {
   final FirebaseFirestore _db = FirebaseFirestore.instance;
 
   Stream<Sesiones> getSesiones(String session) async* {
-
     final data = _db
       .collection('Sesiones')
       .doc(session)
