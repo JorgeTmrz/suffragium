@@ -11,14 +11,13 @@ import IconButton from '@material-ui/core/IconButton';
 import Container from '@material-ui/core/Container';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import { mainListItems } from './helpers/listItems';
+import { MainListItems } from './helpers/listItems';
 import { DashboardStyles } from './helpers/DashboardStyles';
 import { HowToVote } from '@material-ui/icons';
-import { Settings } from './Settings';
-import { Users } from './Users';
+import { AdminRoutes } from '../../routes/AdminRoutes';
 
 
-export default function Dashboard() {
+export default function BasePage() {
   const classes = DashboardStyles();
   const [open, setOpen] = React.useState(true);
   
@@ -64,15 +63,12 @@ export default function Dashboard() {
           </IconButton>
         </div>
         <Divider />
-        <List>{mainListItems}</List>
+        <List><MainListItems/></List>
       </Drawer>
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
         <Container maxWidth="lg" className={classes.container}>
-          {/* <Grid container spacing={3}>
-            <h1>Hello World!</h1>
-          </Grid> */}
-          <Users/>
+          <AdminRoutes/>
         </Container>
       </main>
     </div>
