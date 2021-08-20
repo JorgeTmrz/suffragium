@@ -1,6 +1,7 @@
 import 'dart:convert';
 
-Votaciones votacionesFromJson(String str) => Votaciones.fromJson(json.decode(str));
+Votaciones votacionesFromJson(String str) =>
+    Votaciones.fromJson(json.decode(str));
 
 class Votaciones {
   Votaciones({
@@ -16,21 +17,25 @@ class Votaciones {
   final int limite;
 
   factory Votaciones.fromJson(Map<String, dynamic> json) => Votaciones(
-    preguntas: List<Pregunta>.from(json["preguntas"].map((x) => Pregunta.fromJson(x))),
-    agenda: json["agenda"],
-    estado: json["estado"],
-    limite: json["limite-preguntas"],
-  );
+        preguntas: List<Pregunta>.from(
+            json["preguntas"].map((x) => Pregunta.fromJson(x))),
+        agenda: json["agenda"],
+        estado: json["estado"],
+        limite: json["limite-preguntas"],
+      );
 }
 
 class Pregunta {
   Pregunta({
     required this.titulo,
+    required this.estado,
   });
 
   final String titulo;
+  final String estado;
 
   factory Pregunta.fromJson(Map<String, dynamic> json) => Pregunta(
-    titulo: json["titulo"],
-  );
+        titulo: json["titulo"],
+        estado: json["estado"],
+      );
 }
