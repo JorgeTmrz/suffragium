@@ -16,12 +16,12 @@ import { useEffect } from "react";
 import { useCallback } from "react";
 
 export const AppRouter = () => {
+    const dispatch = useDispatch<appDispatch>();
+    const prefersDarkTheme = useMediaQuery("(prefers-color-scheme: dark)");
     const reduxTheme = useSelector<rootState>(
         (state) => state.app.theme,
         shallowEqual
     ) as PaletteType;
-    const dispatch = useDispatch<appDispatch>();
-    const prefersDarkTheme = useMediaQuery("(prefers-color-scheme: dark)");
 
     const getTheme = useCallback(() => {
         const choosedTheme = localStorage.getItem("theme");
