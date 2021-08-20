@@ -5,12 +5,12 @@ import 'package:votation_app/src/models/preguntas_model.dart';
 class PreguntasProvider with ChangeNotifier {
   final FirebaseFirestore _db = FirebaseFirestore.instance;
 
-  Stream<Preguntas> getPreguntas(String field) async* {
+  Stream<Votaciones> getPreguntas(String field) async* {
     final data = _db
       .collection('Votaciones')
       .doc(field)
       .snapshots()
-      .map((snap) => Preguntas.fromJson(snap.data()!));
+      .map((snap) => Votaciones.fromJson(snap.data()!));
 
     yield* data;
     notifyListeners();
