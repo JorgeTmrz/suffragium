@@ -7,8 +7,18 @@ import { roomPageStyles } from "../../helpers/RoomPageStyles";
 import { currentRoom, roomQuestion } from "../../helpers/types/rooms";
 
 type RoomsModalFormTypes = {
-    handleCurrentRoomChange: ({ target: { value, name }, }: React.ChangeEvent<{ name?: string | undefined; value: unknown; }>) => void;
-    handleCurrentQuestionChange: ({ target: { value, name }, }: React.ChangeEvent<{ name?: string | undefined; value: unknown; }>) => void;
+    handleCurrentRoomChange: ({
+        target: { value, name },
+    }: React.ChangeEvent<{
+        name?: string | undefined;
+        value: unknown;
+    }>) => void;
+    handleCurrentQuestionChange: ({
+        target: { value, name },
+    }: React.ChangeEvent<{
+        name?: string | undefined;
+        value: unknown;
+    }>) => void;
     pushQuestion: () => void;
     currentRoom: currentRoom;
     currentQuestion: roomQuestion;
@@ -26,7 +36,7 @@ export const RoomsModalForm = ({
 
     return (
         <Grid container spacing={3}>
-            <Grid item sm={12}>
+            <Grid item sm={8}>
                 <TextField
                     onChange={handleCurrentRoomChange}
                     value={currentRoom.roomTitle}
@@ -34,6 +44,18 @@ export const RoomsModalForm = ({
                     id="roomTitle"
                     name="roomTitle"
                     label="Titulo de la agenda"
+                    fullWidth
+                />
+            </Grid>
+            <Grid item sm={4}>
+                <TextField
+                    onChange={handleCurrentRoomChange}
+                    value={currentRoom.endDate}
+                    type="time"
+                    required
+                    id="endDate"
+                    name="endDate"
+                    label="Hora de finalización"
                     fullWidth
                 />
             </Grid>

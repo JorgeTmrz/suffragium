@@ -12,6 +12,8 @@ export const useRooms = () => {
     );
 
     const [currentRoom, setCurrentRoom] = useState<currentRoom>({
+        beginDate: null,
+        endDate: null,
         roomTitle: "",
         ended: false,
         questions: [],

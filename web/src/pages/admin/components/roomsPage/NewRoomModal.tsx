@@ -6,11 +6,13 @@ import {
     DialogTitle,
     Typography,
 } from "@material-ui/core";
+// @ts-ignore  
 import Alert from "@material-ui/lab/Alert";
 import { NewRoomModalProps } from "../../helpers/types/rooms";
 import { RoomsModalForm } from "./RoomsModalForm";
 import { QuestionsList } from "./QuestionsList";
 import { useRooms } from "../../hooks/useRooms";
+import { RoomUsers } from "../RoomUsers";
 
 export const NewRoomModal = ({ handleClose, show }: NewRoomModalProps) => {
     const {
@@ -45,6 +47,7 @@ export const NewRoomModal = ({ handleClose, show }: NewRoomModalProps) => {
                     currentRoom={currentRoom}
                     deleteQuestion={deleteQuestion}
                 />
+                <RoomUsers/>
             </DialogContent>
             <DialogActions>
                 <Button onClick={() => {}} variant="contained" color="primary">

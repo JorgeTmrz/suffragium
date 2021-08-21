@@ -14,6 +14,8 @@ export const roomQuestionInitialState: roomQuestion = {
 };
 
 export type currentRoom = {
+    endDate: number | null;
+    beginDate: number | null;
     roomTitle: string;
     ended: boolean;
     users: any[];
