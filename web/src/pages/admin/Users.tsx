@@ -15,7 +15,7 @@ export const Users = () => {
     return (
         <Container>
             <RightActionButton
-                buttonText="Nueva Usuario"
+                buttonText="Nuevo Usuario"
                 onClick={handleModalClose}
             />
             <Grid container spacing={2}>
