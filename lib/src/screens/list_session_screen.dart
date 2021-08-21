@@ -22,8 +22,8 @@ class _ListSessionScreenState extends State<ListSessionScreen> {
             left: -70,
             child: FaIcon(FontAwesomeIcons.calendar,
                 size: 230, color: Colors.white.withOpacity(0.30))),
-        Consumer<Sesiones>(
-          builder: (_, sesion, child) => Column(
+        Consumer<Rooms>(
+          builder: (_, room, child) => Column(
             children: [
               SizedBox(
                 height: 80,
@@ -34,7 +34,7 @@ class _ListSessionScreenState extends State<ListSessionScreen> {
                 style: GoogleFonts.montserrat(
                     fontSize: 20, color: Colors.white.withOpacity(0.7)),
               ),
-              Text(sesion.titulo,
+              Text(room.title,
                   style: GoogleFonts.montserrat(
                       fontSize: 25, color: Colors.white)),
               SizedBox(height: 20),

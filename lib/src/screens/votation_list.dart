@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:votation_app/src/models/preguntas_model.dart';
 import 'package:votation_app/src/providers/theme_provider.dart';
+import 'package:votation_app/src/screens/screens.dart';
 
 class VotationList extends StatelessWidget {
 
@@ -15,25 +16,36 @@ class VotationList extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         elevation: 0.0,
-        title: Consumer<Votaciones>(
-          builder: (_, question, child) => Text(
-              question.agenda, style: GoogleFonts.montserrat(
-              fontSize: 20,
-              color: theme.currentTheme.iconTheme.color 
-            )
-          ),
+        title: Text(
+            "Listado de preguntas", 
+            style: GoogleFonts.montserrat(
+            fontSize: 20,
+            color: theme.currentTheme.iconTheme.color 
+          )
         ),
       ),
-      body: Consumer<Votaciones>(
+      body: Consumer<Questions>(
         builder: (_, questions, child) => Column(
           children: [
             Expanded(
               child: ListView(
-                children: questions.preguntas.map((question) => Padding(
+                children: questions.questions.map((question) => Padding(
                   padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 5.3),
                   child: ListTile(
-                    title: Text(question.titulo, style: GoogleFonts.montserrat(fontSize: 17)),
-                    onTap: () => Navigator.pushNamed(context, 'session'),
+                    title: Text(question.title, style: GoogleFonts.montserrat(fontSize: 17)),
+                    subtitle: Text(
+                      'Tiempo restante: ${question.duration.toDate().toString().split(' ')[1]
+                        .replaceRange(0, 4, '')
+                        .replaceRange(4, 8, '')}'
+                    ),
+                    onTap: () => Navigator.of(context).push(
+                      MaterialPageRoute(builder: (_) => SessionScreen(
+                        timer: question.duration.toDate().toString().split(' ')[1]
+                          .replaceRange(0, 4, '')
+                          .replaceRange(4, 8, ''),
+                        question: question.title,
+                      )
+                    )),
                     trailing: FaIcon(
                       FontAwesomeIcons.chevronCircleRight, 
                     ),

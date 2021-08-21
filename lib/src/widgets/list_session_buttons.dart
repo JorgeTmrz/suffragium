@@ -62,18 +62,18 @@ class ListSessionButtons extends StatelessWidget {
                   SizedBox(height: 90, width: 40,),
                   _setSessionStatus(),
                   SizedBox(width: 20),
-                  Consumer<Sesiones>(
+                  Consumer<Rooms>(
                     builder: (_, value, child) => Expanded(
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'Agenda: ${value.titulo}', 
+                            value.title, 
                             style: GoogleFonts.montserrat(fontSize: 20, color: Colors.white)
                           ),
                           Text(
-                            'Fecha: ${value.agendas.map((val) => val.fecha.toDate())}', 
+                            "Fecha: ${value.beginDate.toDate().toString().split(' ')[0]}", 
                             style: GoogleFonts.montserrat(fontSize: 15, color: Colors.white)
                           ),
                         ],
