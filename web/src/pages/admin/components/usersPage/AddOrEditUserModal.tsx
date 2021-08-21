@@ -18,6 +18,16 @@ type AddOrEditUserModalProps = {
     handleClose: () => void;
 };
 
+const userInitialState = {
+    firstName: "",
+    lastName: "",
+    email: "",
+    job: "",
+    password: "",
+    confirmPassword: "",
+    period: new Date().getFullYear(),
+};
+
 export const AddOrEditUserModal = ({
     id,
     show = false,
@@ -26,20 +36,23 @@ export const AddOrEditUserModal = ({
     const currentAction = id ? "Editar" : "Crear";
     const classes = AddOrEditUserModalStyles();
 
-    const [currentUser, setCurrentUser] = useState({
-        firstName: "",
-        lastName: "",
-        job: "",
-        period: new Date().getFullYear()
-    })
+    const [currentUser, setCurrentUser] = useState(userInitialState);
 
-    const handleInputChange = ({target: {value, name}}: ChangeEvent<HTMLInputElement>) => {
+    const handleInputChange = ({
+        target: { value, name },
+    }: ChangeEvent<HTMLInputElement>) => {
         setCurrentUser((prevState) => ({
             ...prevState,
-            [name]: value
-        }))
-    }
+            [name]: value,
+        }));
+    };
 
+    const handleSubmission = () => {
+        // firebase logic
+        
+        setCurrentUser(userInitialState);
+        handleClose();
+    }
 
     return (
         <Dialog
@@ -51,64 +64,108 @@ export const AddOrEditUserModal = ({
             <DialogTitle>
                 <Typography variant="h5">{`${currentAction} Usuario`}</Typography>
             </DialogTitle>
-            <DialogContent >
-      <Grid container spacing={3}>
-        <Grid item xs={12} sm={6}>
-          <TextField
-            onChange={handleInputChange}
-            value={currentUser.firstName}
-            required
-            id="firstName"    
-            name="firstName"
-                    label="Nombres"
-                    fullWidth
-                    autoComplete="given-name"
-                />
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                <TextField
-                    onChange={handleInputChange}
-                    value={currentUser.lastName}
-                    required
-                    id="lastName"
-                    name="lastName"
-                    label="Apellidos"
-                    fullWidth
-                    autoComplete="family-name"
-                />
-                </Grid>
-                <Grid item sm={7} xs={12}>
-                <TextField
-                    onChange={handleInputChange}
-                    value={currentUser.job}
-                    required
-                    id="job"
-                    name="job"
-                    label="Circunscripción"
-                    fullWidth
-                />
-                </Grid>
-                <Grid item sm={5} xs={12}>
-                <TextField
-                    onChange={handleInputChange}
-                    value={currentUser.period}
-                    id="period"
-                    defaultValue={new Date().getFullYear()}
-                    type={"number"}
-                    name="period"
-                    label="Periodo"
-                    fullWidth
-                    InputProps={{
-                        endAdornment: (
-                            <span className={classes.adormentSpan}>{`Hasta ${JSON.parse(currentUser.period as unknown as string) + 4}`}</span>
-                        )
-                    }}
-                />
-                </Grid>
+            <DialogContent>
+                <Grid container spacing={3}>
+                    <Grid item xs={12} sm={6}>
+                        <TextField
+                            onChange={handleInputChange}
+                            value={currentUser.firstName}
+                            required
+                            id="firstName"
+                            name="firstName"
+                            label="Nombres"
+                            fullWidth
+                            autoComplete="given-name"
+                        />
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
+                        <TextField
+                            onChange={handleInputChange}
+                            value={currentUser.lastName}
+                            required
+                            id="lastName"
+                            name="lastName"
+                            label="Apellidos"
+                            fullWidth
+                            autoComplete="family-name"
+                        />
+                    </Grid>
+                    <Grid item xs={12} sm={12}>
+                        <TextField
+                            onChange={handleInputChange}
+                            value={currentUser.email}
+                            required
+                            id="email"
+                            name="email"
+                            label="Correo Electrónico"
+                            fullWidth
+                            autoComplete="family-name"
+                        />
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
+                        <TextField
+                            onChange={handleInputChange}
+                            value={currentUser.password}
+                            required
+                            type="password"
+                            id="password"
+                            name="password"
+                            label="Contraseña"
+                            fullWidth
+                            autoComplete="family-name"
+                        />
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
+                        <TextField
+                            onChange={handleInputChange}
+                            value={currentUser.confirmPassword}
+                            required
+                            type="password"
+                            id="confirmPassword"
+                            name="confirmPassword"
+                            label="Confirmar Contraseña"
+                            fullWidth
+                            autoComplete="family-name"
+                        />
+                    </Grid>
+                    <Grid item sm={7} xs={12}>
+                        <TextField
+                            onChange={handleInputChange}
+                            value={currentUser.job}
+                            required
+                            id="job"
+                            name="job"
+                            label="Circunscripción"
+                            fullWidth
+                        />
+                    </Grid>
+                    <Grid item sm={5} xs={12}>
+                        <TextField
+                            onChange={handleInputChange}
+                            value={currentUser.period}
+                            id="period"
+                            defaultValue={new Date().getFullYear()}
+                            type={"number"}
+                            name="period"
+                            label="Periodo"
+                            fullWidth
+                            InputProps={{
+                                endAdornment: (
+                                    <span
+                                        className={classes.adormentSpan}
+                                    >{`Hasta ${
+                                        JSON.parse(
+                                            currentUser.period as unknown as string
+                                        ) + 4
+                                    }`}</span>
+                                ),
+                            }}
+                        />
+                    </Grid>
                 </Grid>
             </DialogContent>
             <DialogActions>
-                <Button variant="outlined" color="primary">
+                <Button onClick={handleSubmission} variant="contained" color="primary">
                     {currentAction}
                 </Button>
             </DialogActions>
