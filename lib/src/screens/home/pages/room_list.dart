@@ -2,21 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:votation_app/src/models/sesiones_model.dart';
-import 'package:votation_app/src/widgets/list_session_buttons.dart';
-import 'package:votation_app/src/widgets/list_session_header.dart';
+import 'package:votation_app/src/models/rooms_model.dart';
+import 'package:votation_app/src/screens/home/widgets/room_button.dart';
+import 'package:votation_app/src/screens/home/widgets/room_list_header.dart';
 
-class ListSessionScreen extends StatefulWidget {
+class RoomList extends StatefulWidget {
   @override
-  _ListSessionScreenState createState() => _ListSessionScreenState();
+  _RoomListState createState() => _RoomListState();
 }
 
-class _ListSessionScreenState extends State<ListSessionScreen> {
+class _RoomListState extends State<RoomList> {
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        ListSessionHeader(),
+        // TODO: Aislar este widget
+        RoomListHeader(),
         Positioned(
             top: -50,
             left: -70,
@@ -47,7 +48,8 @@ class _ListSessionScreenState extends State<ListSessionScreen> {
           child: ListView(
             physics: BouncingScrollPhysics(),
             children: [
-              ListSessionButtons(),
+              // TODO: Traer todas los rooms vinculados al usuario
+              RoomButton(),
             ],
           ),
         ),

@@ -23,8 +23,8 @@ class _HomeScreenState extends State<HomeScreen> {
     final double _h = MediaQuery.of(context).size.height;
 
     final List<Widget> _screensToDisplay = [
-      ListSessionScreen(),
-      AccountScreen()
+      RoomList(),
+      AccountScreen(),
     ];
 
     return SafeArea(

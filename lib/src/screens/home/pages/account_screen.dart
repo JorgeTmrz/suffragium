@@ -22,8 +22,8 @@ class _AccountScreenState extends State<AccountScreen> {
     super.initState();
   }
 
-  void _isButtonClicked() => setState(() => _isClicked = !_isClicked);
-  void _isThemeSwitched(bool value, BuildContext context) {
+  _isButtonClicked() => setState(() => _isClicked = !_isClicked);
+  _isThemeSwitched(bool value, BuildContext context) {
     final _theme = Provider.of<ThemeProvider>(context, listen: false);
     _theme.customDarkTheme = value;
   }
