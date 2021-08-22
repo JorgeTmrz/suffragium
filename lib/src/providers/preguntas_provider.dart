@@ -2,16 +2,15 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:votation_app/src/models/preguntas_model.dart';
 
-class PreguntasProvider with ChangeNotifier {
+class QuestionsProvider with ChangeNotifier {
   final FirebaseFirestore _db = FirebaseFirestore.instance;
 
-  Stream<Votaciones> getPreguntas(String agenda) async* {
+  Stream<Questions> getPreguntas() async* {
     final data = _db
-        .collection('Votaciones')
-        .where('agenda', isEqualTo: agenda)
-        .snapshots()
-        .map((snap) =>
-            snap.docs.map((e) => Votaciones.fromJson(e.data())).first);
+      .collection('Questions')
+      .doc('SqSf0kki0wRPCea7iMPA')
+      .snapshots()
+      .map((snap) => Questions.fromJson(snap.data()!));
 
     yield* data;
     notifyListeners();

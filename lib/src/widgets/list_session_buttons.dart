@@ -49,26 +49,20 @@ class ListSessionButtons extends StatelessWidget {
         child: Stack(
           children: [
             Positioned(
-                right: -20,
-                top: -20,
-                child: FaIcon(FontAwesomeIcons.calendarWeek,
-                    size: 150, color: Colors.white.withOpacity(0.2))),
-            Consumer<Sesiones>(
-              builder: (context, value, child) => GestureDetector(
-                onTap: () {
-                  appState.setcurrentSession(value.agendas.first.titulo);
-                  Navigator.pushNamed(context, 'list');
-                },
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SizedBox(
-                      height: 90,
-                      width: 40,
-                    ),
-                    _setSessionStatus(value.estado),
-                    const SizedBox(width: 20),
-                    Expanded(
+              right: -20,
+              top: -20,
+              child: FaIcon(FontAwesomeIcons.calendarWeek, size: 150, color: Colors.white.withOpacity(0.2))
+            ),
+            GestureDetector(
+              onTap: () => Navigator.pushNamed(context, 'list'),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SizedBox(height: 90, width: 40,),
+                  _setSessionStatus(),
+                  SizedBox(width: 20),
+                  Consumer<Rooms>(
+                    builder: (_, value, child) => Expanded(
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -77,9 +71,13 @@ class ListSessionButtons extends StatelessWidget {
                               style: GoogleFonts.montserrat(
                                   fontSize: 20, color: Colors.white)),
                           Text(
-                              'Fecha: ${value.agendas.map((val) => val.fecha.toDate())}',
-                              style: GoogleFonts.montserrat(
-                                  fontSize: 15, color: Colors.white)),
+                            value.title, 
+                            style: GoogleFonts.montserrat(fontSize: 20, color: Colors.white)
+                          ),
+                          Text(
+                            "Fecha: ${value.beginDate.toDate().toString().split(' ')[0]}", 
+                            style: GoogleFonts.montserrat(fontSize: 15, color: Colors.white)
+                          ),
                         ],
                       ),
                     ),

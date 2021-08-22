@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -15,29 +16,23 @@ Future<void> main() async {
 
   // Add other providers here to avoid context error
   runApp(
-    MultiProvider(providers: [
-      ChangeNotifierProvider<ThemeProvider>(create: (_) => ThemeProvider(1)),
-      ChangeNotifierProvider(create: (_) => PreguntasProvider()),
-      // StreamProvider<Votaciones>(
-      //   create: (_) =>
-      //       PreguntasProvider().getPreguntas('Votación: Sesión Ordinaria #1'),
-      //   initialData:
-      //       Votaciones(limite: 0, preguntas: [], agenda: "", estado: ''),
-      //   catchError: (_, error) => throw error.toString(),
-      // ),
-      ChangeNotifierProvider<SesionesProvider>(
-          create: (_) => SesionesProvider()),
-      StreamProvider<Sesiones>(
-        create: (_) => SesionesProvider().getSesiones('Sesion ordinaria #1'),
-        initialData: Sesiones(
-            agendas: [],
-            titulo: "No hay sesiones pautadas",
-            asistencia: 0,
-            estado: ''),
-        catchError: (_, error) => throw error.toString(),
-      ),
-      ChangeNotifierProvider<AppStateProvider>(
-          create: (_) => AppStateProvider()),
-    ], child: App()),
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider<ThemeProvider>(create: (_) => ThemeProvider(1)),
+        ChangeNotifierProvider(create: (_) => QuestionsProvider()),
+        StreamProvider<Questions>(
+          create: (_) => QuestionsProvider().getPreguntas(), 
+          initialData: Questions(questions: []),
+          catchError: (_, error) => throw error.toString(),
+        ),
+        ChangeNotifierProvider<RoomsProvider>(create: (_) => RoomsProvider()),
+        StreamProvider<Rooms>(
+          create: (_) => RoomsProvider().getRooms(), 
+          initialData: Rooms(beginDate: Timestamp.now(), endDate: Timestamp.now(), isEnded: false, title: ''),
+          catchError: (_, error) => throw error.toString(),
+        )
+      ],
+      child: App()
+    ),
   );
 }

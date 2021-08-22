@@ -1,41 +1,35 @@
 import 'dart:convert';
 
-Votaciones votacionesFromJson(String str) =>
-    Votaciones.fromJson(json.decode(str));
+import 'package:cloud_firestore/cloud_firestore.dart';
 
-class Votaciones {
-  Votaciones({
-    required this.preguntas,
-    required this.agenda,
-    required this.estado,
-    required this.limite,
+Questions questionsFromJson(String str) => Questions.fromJson(json.decode(str));
+
+class Questions {
+  Questions({
+    required this.questions,
   });
 
-  final List<Pregunta> preguntas;
-  final String agenda;
-  final String estado;
-  final int limite;
+  final List<Question> questions;
 
-  factory Votaciones.fromJson(Map<String, dynamic> json) => Votaciones(
-        preguntas: List<Pregunta>.from(
-            json["preguntas"].map((x) => Pregunta.fromJson(x))),
-        agenda: json["agenda"],
-        estado: json["estado"],
-        limite: json["limite-preguntas"],
-      );
+  factory Questions.fromJson(Map<String, dynamic> json) => Questions(
+    questions: List<Question>.from(json["questions"].map((x) => Question.fromJson(x))),
+  );
 }
 
-class Pregunta {
-  Pregunta({
-    required this.titulo,
-    required this.estado,
+class Question {
+  Question({
+    required this.duration,
+    required this.isEnded,
+    required this.title,
   });
 
-  final String titulo;
-  final String estado;
+  final Timestamp duration;
+  final bool isEnded;
+  final String title;
 
-  factory Pregunta.fromJson(Map<String, dynamic> json) => Pregunta(
-        titulo: json["titulo"],
-        estado: json["estado"],
-      );
+  factory Question.fromJson(Map<String, dynamic> json) => Question(
+    duration: json["duration"],
+    isEnded: json["isEnded"],
+    title: json["title"],
+  );
 }

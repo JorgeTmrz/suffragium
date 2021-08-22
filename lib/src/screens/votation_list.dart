@@ -6,6 +6,7 @@ import 'package:votation_app/src/models/preguntas_model.dart';
 import 'package:votation_app/src/providers/app_state_provider.dart';
 import 'package:votation_app/src/providers/preguntas_provider.dart';
 import 'package:votation_app/src/providers/theme_provider.dart';
+import 'package:votation_app/src/screens/screens.dart';
 
 class VotationList extends StatelessWidget {
   FaIcon _getQuestionStatusIcon(String status) {
@@ -24,45 +25,47 @@ class VotationList extends StatelessWidget {
     final theme = Provider.of<ThemeProvider>(context);
     final appState = Provider.of<AppStateProvider>(context);
 
-    return StreamProvider<Votaciones>(
-      create: (_) =>
-          PreguntasProvider().getPreguntas(appState.getcurrentSession),
-      initialData: Votaciones(limite: 0, preguntas: [], agenda: "", estado: ''),
-      catchError: (_, error) => throw error.toString(),
-      child: Scaffold(
-        appBar: AppBar(
-          elevation: 0.0,
-          title: Consumer<Votaciones>(
-            builder: (_, question, child) => Text(question.agenda,
-                style: GoogleFonts.montserrat(
-                    fontSize: 20, color: theme.currentTheme.iconTheme.color)),
-          ),
+    return Scaffold(
+      appBar: AppBar(
+        elevation: 0.0,
+        title: Text(
+            "Listado de preguntas", 
+            style: GoogleFonts.montserrat(
+            fontSize: 20,
+            color: theme.currentTheme.iconTheme.color 
+          )
         ),
-        body: Consumer<Votaciones>(
-          builder: (_, questions, child) => Column(
-            children: [
-              Expanded(
-                  child: ListView(
-                      children: questions.preguntas
-                          .map((question) => Padding(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: 16.0, vertical: 5.3),
-                                child: ListTile(
-                                  leading:
-                                      _getQuestionStatusIcon(question.estado),
-                                  title: Text(question.titulo,
-                                      style:
-                                          GoogleFonts.montserrat(fontSize: 17)),
-                                  onTap: () =>
-                                      Navigator.pushNamed(context, 'session'),
-                                  trailing: FaIcon(
-                                    FontAwesomeIcons.chevronCircleRight,
-                                  ),
-                                ),
-                              ))
-                          .toList()))
-            ],
-          ),
+      ),
+      body: Consumer<Questions>(
+        builder: (_, questions, child) => Column(
+          children: [
+            Expanded(
+              child: ListView(
+                children: questions.questions.map((question) => Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 5.3),
+                  child: ListTile(
+                    title: Text(question.title, style: GoogleFonts.montserrat(fontSize: 17)),
+                    subtitle: Text(
+                      'Tiempo restante: ${question.duration.toDate().toString().split(' ')[1]
+                        .replaceRange(0, 4, '')
+                        .replaceRange(4, 8, '')}'
+                    ),
+                    onTap: () => Navigator.of(context).push(
+                      MaterialPageRoute(builder: (_) => SessionScreen(
+                        timer: question.duration.toDate().toString().split(' ')[1]
+                          .replaceRange(0, 4, '')
+                          .replaceRange(4, 8, ''),
+                        question: question.title,
+                      )
+                    )),
+                    trailing: FaIcon(
+                      FontAwesomeIcons.chevronCircleRight, 
+                    ),
+                  ), 
+                )).toList() 
+              )
+            )
+          ],
         ),
       ),
     );

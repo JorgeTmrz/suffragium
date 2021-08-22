@@ -19,7 +19,6 @@ class App extends StatelessWidget {
         'signup': (_) => SignUpScreen(),
         'home': (_) => HomeScreen(),
         'list': (_) => VotationList(),
-        'session': (_) => SessionScreen()
       },
     );
   }

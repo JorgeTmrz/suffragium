@@ -8,6 +8,11 @@ import 'package:votation_app/src/providers/theme_provider.dart';
 import 'package:votation_app/src/widgets/question_timer.dart';
 
 class SessionScreen extends StatefulWidget {
+
+  late final String timer, question;
+
+  SessionScreen({required this.timer, required this.question});
+
   @override
   _SessionScreenState createState() => _SessionScreenState();
 }
@@ -30,12 +35,12 @@ class _SessionScreenState extends State<SessionScreen> {
         appBar: AppBar(
           elevation: 0.0,
           automaticallyImplyLeading: false,
-          title: Consumer<Sesiones>(
-            builder: (_, sessions, child) => Column(
+          title: Consumer<Rooms>(
+            builder: (_, room, child) => Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  sessions.titulo,
+                  room.title,
                   style: GoogleFonts.montserrat(
                       fontSize: 30, color: theme.currentTheme.iconTheme.color),
                 ),
@@ -43,7 +48,7 @@ class _SessionScreenState extends State<SessionScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      "${sessions.agendas.map((e) => e.fecha.toDate())}",
+                      room.beginDate.toDate().toString().split(' ')[0],
                       style: GoogleFonts.montserrat(
                           fontSize: 18,
                           color: theme.currentTheme.iconTheme.color),
@@ -62,7 +67,7 @@ class _SessionScreenState extends State<SessionScreen> {
         ),
         body: Padding(
           padding: const EdgeInsets.all(16),
-          child: QuestionTimer(theme: theme),
+          child: QuestionTimer(theme: theme, questionName: widget.question, questionTimer: widget.timer),
         ),
         floatingActionButton: ElevatedButton.icon(
           onPressed: () => Navigator.pop(context),
