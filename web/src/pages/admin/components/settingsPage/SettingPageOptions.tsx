@@ -14,7 +14,7 @@ import {
     WbSunnySharp,
 } from "@material-ui/icons";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import { SettingsPageStyles } from "../../helpers/SettingsPageStyles";
+import { SettingsPageStyles } from "../../helpers/styles/SettingsPageStyles";
 import { appDispatch, rootState } from "../../../../redux/index";
 
 export const SettingPageOptions = () => {

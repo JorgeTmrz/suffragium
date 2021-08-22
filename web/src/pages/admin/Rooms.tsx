@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import { Grid, Divider, Typography } from "@material-ui/core";
 import { RightActionButton } from "../../components/RightActionButton";
 import { CurrentRoomCard } from "./components/roomsPage/CurrentRoomCard";
-import { mockRooms } from "./helpers/mockRooms";
+import { mockRooms } from "./helpers/fixtures/mockRooms";
 import { EndedRoomCard } from "./components/roomsPage/EndedRoomCard";
-import { RoomsPageStyles } from "./helpers/RoomsPageStyles";
+import { RoomsPageStyles } from "./helpers/styles/RoomsPageStyles";
 import { NewRoomModal } from './components/roomsPage/NewRoomModal';
 
 export const Rooms = () => {

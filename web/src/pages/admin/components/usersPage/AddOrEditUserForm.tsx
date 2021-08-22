@@ -2,7 +2,7 @@ import React, { ChangeEventHandler } from "react";
 import { Grid } from '@material-ui/core';
 import TextField from '@material-ui/core/TextField';
 import { userInitialState } from "../../helpers/userInitialState";
-import { AddOrEditUserModalStyles } from "../../helpers/UsersPageStyles";
+import { AddOrEditUserModalStyles } from "../../helpers/styles/UsersPageStyles";
 
 type AddOrEditUserFormProps = {
     handleChange: ChangeEventHandler<HTMLInputElement>

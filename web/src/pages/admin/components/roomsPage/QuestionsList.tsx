@@ -6,7 +6,7 @@ import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
 import { DeleteTwoTone } from "@material-ui/icons";
 import Alert from "@material-ui/lab/Alert";
-import { roomPageStyles } from "../../helpers/RoomPageStyles";
+import { roomPageStyles } from "../../helpers/styles/RoomPageStyles";
 import List from "@material-ui/core/List";
 
 type QuestionsListTypes = {

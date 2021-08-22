@@ -1,6 +1,6 @@
 import { Typography } from "@material-ui/core";
 import React from "react";
-import { roomPageStyles } from "../helpers/RoomPageStyles";
+import { roomPageStyles } from "../helpers/styles/RoomPageStyles";
 import { UsersTable } from "./roomsPage/UsersTable";
 
 export const RoomUsers = () => {

@@ -1,4 +1,4 @@
-import { SettingsPageStyles } from "./helpers/SettingsPageStyles";
+import { SettingsPageStyles } from "./helpers/styles/SettingsPageStyles";
 import { Avatar } from "./components/settingsPage/Avatar";
 import { SettingPageOptions } from "./components/settingsPage/SettingPageOptions";
 import { Container } from "@material-ui/core";

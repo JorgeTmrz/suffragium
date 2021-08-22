@@ -1,6 +1,6 @@
 import { Grid, Typography, Avatar as AvatarIcon } from "@material-ui/core";
 import { AccountCircle } from "@material-ui/icons";
-import { SettingsPageStyles } from "../../helpers/SettingsPageStyles";
+import { SettingsPageStyles } from "../../helpers/styles/SettingsPageStyles";
 
 type AvatarPros = {
     name?: string;
