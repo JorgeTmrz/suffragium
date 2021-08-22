@@ -2,20 +2,19 @@
 
 import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
-import { FirebaseAppProvider } from "reactfire";
 import "./App.css";
-import { firebaseConfig } from "./firebase/firebaseConfig";
+import { FirebaseProvider } from "./firebase/components/FirebaseProvider";
 import { store } from "./redux/store";
 import { AppRouter } from "./routes/AppRouter";
 function App() {
     return (
-        <FirebaseAppProvider firebaseConfig={firebaseConfig}>
+        <FirebaseProvider>
             <Provider store={store}>
                 <BrowserRouter>
                     <AppRouter />
                 </BrowserRouter>
             </Provider>
-        </FirebaseAppProvider>
+        </FirebaseProvider>
     );
 }
 
