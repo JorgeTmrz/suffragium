@@ -7,6 +7,8 @@ import 'package:votation_app/src/models/vote_model.dart';
 import 'package:votation_app/src/providers/theme_provider.dart';
 
 class QuestionResultsClass extends StatelessWidget {
+  const QuestionResultsClass({required this.question});
+  final String question;
   String _getAnswerTitle(AnswerType answer) {
     switch (answer) {
       case AnswerType.yes:
@@ -19,21 +21,24 @@ class QuestionResultsClass extends StatelessWidget {
   }
 
   List<Series<Vote, String>> _createData(
-      BuildContext context, List<Answer> answers) {
+      BuildContext context, List<Answer> answersList, String currentQuestion) {
     final theme = Provider.of<ThemeProvider>(context).currentTheme;
     Vote positiveVotes = Vote(vote: AnswerType.yes, quantity: 0);
     Vote negativeVotes = Vote(vote: AnswerType.no, quantity: 0);
     Vote abstainVotes = Vote(vote: AnswerType.abstain, quantity: 0);
 
+    var answers =
+        answersList.where((element) => element.question == currentQuestion);
+
     for (var vote in answers) {
-      switch (vote.answer) {
-        case AnswerType.yes:
+      switch (vote.answer.toLowerCase()) {
+        case 'si':
           positiveVotes.quantity++;
           break;
-        case AnswerType.no:
+        case 'no':
           negativeVotes.quantity++;
           break;
-        case AnswerType.abstain:
+        case 'me abstengo':
           abstainVotes.quantity++;
           break;
       }
@@ -62,7 +67,7 @@ class QuestionResultsClass extends StatelessWidget {
 
     return Consumer<Answers>(
       builder: (context, answers, child) => BarChart(
-        _createData(context, answers.answers),
+        _createData(context, answers.answers, this.question),
         vertical: true,
         domainAxis: OrdinalAxisSpec(
           renderSpec: SmallTickRendererSpec(

@@ -12,7 +12,7 @@ class Answers {
     required this.answers,
   });
 
-  final List<Answer> answers;
+  List<Answer> answers;
   final DocumentReference? questions;
 
   factory Answers.fromJson(Map<String, dynamic> json) => Answers(
@@ -29,13 +29,19 @@ class Answer {
     required this.user,
   });
 
-  final AnswerType answer;
+  String answer;
   final String question;
   final String user;
 
   factory Answer.fromJson(Map<String, dynamic> json) => Answer(
-        answer: stringToAnswerType(json["answer"]),
+        answer: json["answer"],
         question: json["question"],
         user: json["user"],
       );
+
+  Map<String, dynamic> toJson() => {
+        'answer': answer,
+        'question': question,
+        'user': user,
+      };
 }

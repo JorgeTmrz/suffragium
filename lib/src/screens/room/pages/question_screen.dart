@@ -85,7 +85,13 @@ class _QuestionScreenState extends State<QuestionScreen> {
                         theme: theme,
                         questionName: widget.question,
                         questionTimer: widget.timer),
-                    ResponseButtons(),
+                    Consumer<Answers>(
+                      builder: (context, answers, child) => ResponseButtons(
+                        answers: answers,
+                        answersId: questions.answers!.id,
+                        question: widget.question,
+                      ),
+                    ),
                     Container(
                       height: _h * 0.48,
                       decoration: BoxDecoration(
@@ -96,7 +102,8 @@ class _QuestionScreenState extends State<QuestionScreen> {
                           Text("Resultados de la votación",
                               style: GoogleFonts.montserrat(fontSize: 30)),
                           Expanded(
-                            child: QuestionResultsClass(),
+                            child:
+                                QuestionResultsClass(question: widget.question),
                           ),
                         ],
                       ),
