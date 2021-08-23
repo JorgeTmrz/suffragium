@@ -41,6 +41,10 @@ export const useFirebaseUsers = () => {
             .set(cleanUser);
     },[firebase]);
 
+    const loginAdminUser = () => {
+        
+    }
+
     return {
         createUser,
         getUsers,
