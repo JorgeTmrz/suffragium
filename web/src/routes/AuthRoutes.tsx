@@ -7,8 +7,8 @@ export const AuthRoutes = () => {
     return (
         <>
             <Switch>
-                <Route path="auth/login" component={LoginPage}/>
-                <Redirect to="auth/login"/>
+                <Route exact path="/auth/login" component={LoginPage}/>
+                <Redirect to="/auth/login"/>
             </Switch>
         </>
     )

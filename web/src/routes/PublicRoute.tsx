@@ -1,6 +1,8 @@
 import React from "react";
-import { Redirect, Route } from "react-router-dom";
+import { Route } from "react-router-dom";
 import { RouteParams } from "./types/routeParams";
+import { PrivateRoute } from './PrivateRoute';
+import { AdminRoutes } from './AdminRoutes';
 
 export const PublicRoute = ({
     Component,
@@ -11,7 +13,11 @@ export const PublicRoute = ({
         <Route
             {...rest}
             component={(props: Object) =>
-                isAuthenticated ? <Redirect to="/" /> : <Component {...props}/>
+                isAuthenticated ? <PrivateRoute
+                    rest={{}}
+                    isAuthenticated
+                    Component ={AdminRoutes}
+                /> : <Component />
             }
         />
     );
