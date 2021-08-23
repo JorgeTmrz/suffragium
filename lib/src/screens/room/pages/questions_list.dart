@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:votation_app/src/models/questions_model.dart';
+import 'package:votation_app/src/providers/app_state_provider.dart';
 import 'package:votation_app/src/providers/theme_provider.dart';
 import 'package:votation_app/src/screens/screens.dart';
 
@@ -21,7 +22,7 @@ class QuestionsList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Provider.of<ThemeProvider>(context);
-    // final appState = Provider.of<AppStateProvider>(context);
+    final appState = Provider.of<AppStateProvider>(context);
 
     return Scaffold(
       appBar: AppBar(
@@ -30,8 +31,8 @@ class QuestionsList extends StatelessWidget {
             style: GoogleFonts.montserrat(
                 fontSize: 20, color: theme.currentTheme.iconTheme.color)),
       ),
-      body: Consumer<Questions>(
-        builder: (_, questions, child) => Column(
+      body: Consumer<Questions>(builder: (_, questions, child) {
+        return Column(
           children: [
             Expanded(
               child: ListView(
@@ -49,17 +50,22 @@ class QuestionsList extends StatelessWidget {
                             ),
                             subtitle: Text(
                                 'Tiempo restante: ${question.duration.toDate().toString().split(' ')[1].replaceRange(0, 4, '').replaceRange(4, 8, '')}'),
-                            onTap: () =>
-                                Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (_) => QuestionScreen(
-                                          timer: question.duration
-                                              .toDate()
-                                              .toString()
-                                              .split(' ')[1]
-                                              .replaceRange(0, 4, '')
-                                              .replaceRange(4, 8, ''),
-                                          question: question.title,
-                                        ))),
+                            onTap: () {
+                              appState.setCurrentQuestion(question.title);
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (_) => QuestionScreen(
+                                    timer: question.duration
+                                        .toDate()
+                                        .toString()
+                                        .split(' ')[1]
+                                        .replaceRange(0, 4, '')
+                                        .replaceRange(4, 8, ''),
+                                    question: question.title,
+                                  ),
+                                ),
+                              );
+                            },
                             trailing: Padding(
                               padding: const EdgeInsets.only(bottom: 5),
                               child: FaIcon(
@@ -72,8 +78,8 @@ class QuestionsList extends StatelessWidget {
                       .toList()),
             ),
           ],
-        ),
-      ),
+        );
+      }),
     );
   }
 }

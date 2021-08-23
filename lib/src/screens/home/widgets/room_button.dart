@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:votation_app/src/models/rooms_model.dart';
+import 'package:votation_app/src/providers/app_state_provider.dart';
 
 class RoomButton extends StatelessWidget {
   Widget _getRoomStatusIcon(bool status) {
@@ -23,6 +24,8 @@ class RoomButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final appState = Provider.of<AppStateProvider>(context);
+
     return Padding(
       padding: EdgeInsets.only(top: 20, left: 20, right: 20),
       child: Container(
@@ -52,7 +55,10 @@ class RoomButton extends StatelessWidget {
             ),
             Consumer<Rooms>(
               builder: (context, room, child) => GestureDetector(
-                onTap: () => Navigator.pushNamed(context, 'list'),
+                onTap: () {
+                  appState.setCurrentRoom(room);
+                  Navigator.pushNamed(context, 'list');
+                },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [

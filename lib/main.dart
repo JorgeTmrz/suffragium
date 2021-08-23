@@ -19,8 +19,10 @@ Future<void> main() async {
     MultiProvider(providers: [
       ChangeNotifierProvider<ThemeProvider>(create: (_) => ThemeProvider(1)),
       ChangeNotifierProvider(create: (_) => QuestionsProvider()),
+      ChangeNotifierProvider<AppStateProvider>(
+          create: (_) => AppStateProvider()),
       StreamProvider<Questions>(
-        create: (_) => QuestionsProvider().getPreguntas(),
+        create: (context) => QuestionsProvider().getQuestions(context),
         initialData: Questions(questions: []),
         catchError: (_, error) => throw error.toString(),
       ),
@@ -28,12 +30,13 @@ Future<void> main() async {
       StreamProvider<Rooms>(
         create: (_) => RoomsProvider().getRooms(),
         initialData: Rooms(
-            beginDate: Timestamp.now(),
-            endDate: Timestamp.now(),
-            isEnded: false,
-            title: ''),
+          beginDate: Timestamp.now(),
+          endDate: Timestamp.now(),
+          isEnded: false,
+          title: '',
+        ),
         catchError: (_, error) => throw error.toString(),
-      )
+      ),
     ], child: App()),
   );
 }

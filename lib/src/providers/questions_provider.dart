@@ -5,7 +5,7 @@ import 'package:votation_app/src/models/questions_model.dart';
 class QuestionsProvider with ChangeNotifier {
   final FirebaseFirestore _db = FirebaseFirestore.instance;
 
-  Stream<Questions> getPreguntas() async* {
+  Stream<Questions> getQuestions(BuildContext context) async* {
     final data = _db
         .collection('Questions')
         .doc('SqSf0kki0wRPCea7iMPA')
