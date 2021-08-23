@@ -10,10 +10,12 @@ import Typography from "@material-ui/core/Typography";
 import { useState } from "react";
 import { userInitialState } from "../../helpers/userInitialState";
 import { AddOrEditUserForm } from "./AddOrEditUserForm";
+import { userValidationSchema } from "../../helpers/usersInitialState";
 
 type AddOrEditUserModalProps = {
     id?: number;
     show: boolean;
+    submissionCallback: Function;
     handleClose: () => void;
 };
 
@@ -21,6 +23,7 @@ export const AddOrEditUserModal = ({
     id,
     show = false,
     handleClose,
+    submissionCallback = () => {},
 }: AddOrEditUserModalProps) => {
     const currentAction = id ? "Editar" : "Crear";
     const [currentUser, setCurrentUser] = useState(userInitialState);
@@ -35,10 +38,14 @@ export const AddOrEditUserModal = ({
     };
 
     const handleSubmission = () => {
-        // firebase logic
-
-        setCurrentUser(userInitialState);
-        handleClose();
+        userValidationSchema
+            .validate(currentUser)
+            .then(async (values) => {
+                setCurrentUser(userInitialState);
+                handleClose();
+                await submissionCallback(values);
+            })
+            .catch((reason) => console.log(reason));
     };
 
     return (
