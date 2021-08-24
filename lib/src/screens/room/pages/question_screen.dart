@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:votation_app/src/classes/chart_class.dart';
 import 'package:votation_app/src/models/answers_model.dart';
 import 'package:votation_app/src/providers/answers_provider.dart';
-import 'package:votation_app/src/providers/theme_provider.dart';
+import 'package:votation_app/src/screens/room/widgets/question_chart.dart';
+// import 'package:votation_app/src/providers/theme_provider.dart';
 import 'package:votation_app/src/screens/room/widgets/response_buttons.dart';
 
 class QuestionScreen extends StatefulWidget {
@@ -74,8 +74,7 @@ class _QuestionScreenState extends State<QuestionScreen> {
                         Text("Resultados de la votación",
                             style: GoogleFonts.montserrat(fontSize: 30)),
                         Expanded(
-                          child:
-                              QuestionResultsClass(question: widget.question),
+                          child: QuestionChart(question: widget.question),
                         ),
                       ],
                     ),

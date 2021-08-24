@@ -6,8 +6,8 @@ import 'package:votation_app/src/models/answers_model.dart';
 import 'package:votation_app/src/models/vote_model.dart';
 import 'package:votation_app/src/providers/theme_provider.dart';
 
-class QuestionResultsClass extends StatelessWidget {
-  const QuestionResultsClass({required this.question});
+class QuestionChart extends StatelessWidget {
+  const QuestionChart({required this.question});
   final String question;
   String _getAnswerTitle(AnswerType answer) {
     switch (answer) {
