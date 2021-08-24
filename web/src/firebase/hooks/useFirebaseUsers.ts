@@ -23,7 +23,7 @@ export const useFirebaseUsers = () => {
                 .firestore()
                 .collection("Users")
                 .doc(newUser.user?.uid)
-                .set({...cleanUser, id: newUser.user?.uid});
+                .set({ ...cleanUser, id: newUser.user?.uid });
         },
         [firebase]
     );
@@ -66,12 +66,10 @@ export const useFirebaseUsers = () => {
             .then((user) => {
                 getUser(user.user?.uid ?? "").then((value) => {
                     if (value?.isAdmin) {
-                        user.user?.getIdToken().then((token) => {
-                            localStorage.setItem("userToken", token);
-                            dispatch({
-                                type: "SET_USER",
-                                payload: value,
-                            });
+                        localStorage.setItem("user", value);
+                        dispatch({
+                            type: "SET_USER",
+                            payload: value,
                         });
                     } else {
                         firebase.auth().signOut();
@@ -89,16 +87,14 @@ export const useFirebaseUsers = () => {
     };
 
     const checkIfToken = useCallback(() => {
-        const token = localStorage.getItem("userToken");
-        if(token){
-            firebase.auth().signInWithCustomToken(token).then(({user}) => {
-                dispatch({
-                    type: "SET_USER",
-                    payload: {uid: user?.uid, email: user?.email },
-                });
-            }).catch(console.error);
+        const user = JSON.parse(localStorage.getItem("user") ?? '');
+        if (user) {
+            dispatch({
+                type: "SET_USER",
+                payload: { uid: user?.uid, email: user?.email },
+            });
         }
-    }, [dispatch, firebase])
+    }, [dispatch]);
 
     return {
         checkIfToken,
