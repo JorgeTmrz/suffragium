@@ -4,21 +4,16 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:votation_app/src/classes/chart_class.dart';
 import 'package:votation_app/src/models/answers_model.dart';
-import 'package:votation_app/src/models/questions_model.dart';
-import 'package:votation_app/src/models/rooms_model.dart';
 import 'package:votation_app/src/providers/answers_provider.dart';
-import 'package:votation_app/src/providers/auth_service.dart';
 import 'package:votation_app/src/providers/theme_provider.dart';
-import 'package:votation_app/src/screens/room/widgets/question_timer.dart';
 import 'package:votation_app/src/screens/room/widgets/response_buttons.dart';
 
 class QuestionScreen extends StatefulWidget {
-  late final String timer, question, questionsId;
+  late final String question, questionsId;
   late final bool questionIsEnded;
 
   QuestionScreen(
-      {required this.timer,
-      required this.question,
+      {required this.question,
       required this.questionsId,
       required this.questionIsEnded});
 
@@ -27,17 +22,14 @@ class QuestionScreen extends StatefulWidget {
 }
 
 class _QuestionScreenState extends State<QuestionScreen> {
-  late AuthService _auth;
-
   @override
   void initState() {
-    _auth = new AuthService();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    final theme = Provider.of<ThemeProvider>(context);
+    // final theme = Provider.of<ThemeProvider>(context);
     final _h = MediaQuery.of(context).size.height;
 
     return StreamProvider<Answers>(
@@ -64,10 +56,6 @@ class _QuestionScreenState extends State<QuestionScreen> {
               padding: const EdgeInsets.all(16),
               child: Column(
                 children: [
-                  QuestionTimer(
-                      theme: theme,
-                      questionName: widget.question,
-                      questionTimer: widget.timer),
                   Consumer<Answers>(
                     builder: (context, answers, child) => ResponseButtons(
                       answers: answers,

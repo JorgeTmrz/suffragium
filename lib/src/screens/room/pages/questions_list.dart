@@ -53,18 +53,10 @@ class QuestionsList extends StatelessWidget {
                                 padding: const EdgeInsets.only(top: 5),
                                 child: _getQuestionStatusIcon(question.isEnded),
                               ),
-                              subtitle: Text(
-                                  'Tiempo restante: ${question.duration.toDate().toString().split(' ')[1].replaceRange(0, 4, '').replaceRange(4, 8, '')}'),
                               onTap: () {
                                 Navigator.of(context).push(
                                   MaterialPageRoute(
                                     builder: (_) => QuestionScreen(
-                                      timer: question.duration
-                                          .toDate()
-                                          .toString()
-                                          .split(' ')[1]
-                                          .replaceRange(0, 4, '')
-                                          .replaceRange(4, 8, ''),
                                       question: question.title,
                                       questionIsEnded: question.isEnded,
                                       questionsId: questions.id,

@@ -1,7 +1,5 @@
 import 'dart:convert';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
-
 Questions questionsFromJson(String str, String id) =>
     Questions.fromJson(json.decode(str), id);
 
@@ -26,17 +24,14 @@ class Questions {
 
 class Question {
   Question({
-    required this.duration,
     required this.isEnded,
     required this.title,
   });
 
-  final Timestamp duration;
   final bool isEnded;
   final String title;
 
   factory Question.fromJson(Map<String, dynamic> json) => Question(
-        duration: json["duration"],
         isEnded: json["isEnded"],
         title: json["title"],
       );
