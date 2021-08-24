@@ -65,7 +65,7 @@ export const Rooms = () => {
                     return (
                         <EndedRoomCard
                             topic={title}
-                            date={beginDate ?? ""}
+                            date={beginDate ?? 0}
                             participants={participants}
                         />
                     );

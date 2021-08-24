@@ -51,7 +51,7 @@ export const RoomsModalForm = ({
                 <TextField
                     onChange={handleCurrentRoomChange}
                     value={currentRoom.endDate}
-                    type="time"
+                    type="datetime-local"
                     required
                     id="endDate"
                     name="endDate"

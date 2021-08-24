@@ -25,8 +25,8 @@ export type currentRoom = {
 
 export type roomType = {
     id?: string;
-    beginDate: null;
-    endDate: null;
+    endDate: number | null;
+    beginDate: number | null;
     title: string;
     isEnded: boolean;
     questions: roomQuestion[];
@@ -34,7 +34,7 @@ export type roomType = {
 };
 
 export const roomInitialState: roomType = {
-    beginDate: null,
+    beginDate: + new Date(),
     endDate: null,
     title: "",
     isEnded: false,

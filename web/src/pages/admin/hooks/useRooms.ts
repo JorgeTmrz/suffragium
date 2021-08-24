@@ -52,9 +52,12 @@ export const useRooms = () => {
 
     const handleQuestionSubmission = (submissionCallback: Function) => {
         if (currentRoom.title && currentRoom.endDate) {
-            createRoom(currentRoom, participants);
-            setCurrentRoom(roomInitialState);
-            submissionCallback();
+            const roomEndDate = new Date(currentRoom.endDate);
+            if(currentRoom.beginDate ?? new Date() < roomEndDate){
+                createRoom(currentRoom, participants);
+                setCurrentRoom(roomInitialState);
+                submissionCallback();
+            } else setErrorMessage("No es posible crear reuniones en el pasado");
         } else setErrorMessage("Faltan campos");
     };
 

@@ -11,7 +11,8 @@ export const useFirebaseRooms = () => {
             roomsRef
                 .add({
                     ...room,
-                    beginDate: new Date().toLocaleString(),
+                    beginDate: new Date(),
+                    endDate: new Date(room.endDate ?? 0),
                     isEnded: false,
                     participants: participants,
                 })

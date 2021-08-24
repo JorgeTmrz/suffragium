@@ -17,14 +17,14 @@ import { useRef } from "react";
 
 type endedRoomProps = {
     topic?: string;
-    date?: string;
+    date?: number;
     participants?: Object;
 };
 
 export const EndedRoomCard = ({
     topic = "test",
     participants = Object,
-    date = "2020-2024",
+    date = + new Date(),
 }: endedRoomProps) => {
     const [isOpenMenu, setIsOpenMenu] = useState(false);
     const anchorEl = useRef(null);
