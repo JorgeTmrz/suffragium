@@ -10,6 +10,7 @@ type userType = typeof userInitialState;
 
 export const useFirebaseUsers = () => {
     const firebase = useContext(FirebaseContext);
+    const usersRef = firebase.firestore().collection("Users");
     const dispatch = useDispatch();
 
     const createUser = useCallback(
@@ -19,44 +20,35 @@ export const useFirebaseUsers = () => {
             const newUser = await firebase
                 .auth()
                 .createUserWithEmailAndPassword(user.email, password);
-            firebase
-                .firestore()
-                .collection("Users")
+
+            usersRef
                 .doc(newUser.user?.uid)
                 .set({ ...cleanUser, id: newUser.user?.uid });
         },
-        [firebase]
+        [firebase, usersRef]
     );
 
     const getUsers = useCallback(async () => {
-        const snapshot = await firebase.firestore().collection("Users").get();
+        const snapshot = await usersRef.get();
         return snapshot.docs
             .map((doc) => doc.data())
             .filter((doc) => !doc.isAdmin) as userType[];
-    }, [firebase]);
+    }, [usersRef]);
 
     const getUser = useCallback(
         (uid: string) => {
-            const snapshot = firebase
-                .firestore()
-                .collection("Users")
-                .doc(uid)
-                .get();
+            const snapshot = usersRef.doc(uid).get();
             return snapshot.then((value) => ({ ...value.data(), uid } as any));
         },
-        [firebase]
+        [usersRef]
     );
 
     const editUser = useCallback(
         async (uid: string, user: userType) => {
             const { password, confirmPassword, ...cleanUser } = user;
-            return await firebase
-                .firestore()
-                .collection("Users")
-                .doc(uid)
-                .set(cleanUser);
+            return await usersRef.doc(uid).set(cleanUser);
         },
-        [firebase]
+        [usersRef]
     );
 
     const loginAdminUser = (user: LoginUser, onErrorCallback: Function) => {
@@ -66,7 +58,7 @@ export const useFirebaseUsers = () => {
             .then((user) => {
                 getUser(user.user?.uid ?? "").then((value) => {
                     if (value?.isAdmin) {
-                        localStorage.setItem("user", value);
+                        localStorage.setItem("user", JSON.stringify(value));
                         dispatch({
                             type: "SET_USER",
                             payload: value,
@@ -87,7 +79,7 @@ export const useFirebaseUsers = () => {
     };
 
     const checkIfToken = useCallback(() => {
-        const user = JSON.parse(localStorage.getItem("user") ?? '');
+        const user = JSON.parse(localStorage.getItem("user") ?? "{}");
         if (user) {
             dispatch({
                 type: "SET_USER",

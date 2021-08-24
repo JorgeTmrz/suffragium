@@ -14,23 +14,25 @@ type activeAndEnded = {
     active: roomType[];
 };
 
+const roomsInitialState = {
+    active: [],
+    ended: [],
+}
+
 export const Rooms = () => {
     const classes = RoomsPageStyles();
     const { getRooms } = useFirebaseRooms();
     const [showModal, setShowModal] = useState(false);
-    const [rooms, setRooms] = useState<activeAndEnded>({
-        active: [],
-        ended: [],
-    });
+    const [rooms, setRooms] = useState<activeAndEnded>(roomsInitialState);
 
     const handleModalClose = () => {
         setShowModal(!showModal);
     };
 
     useEffect(() => {
-        // eslint-disable-next-line no-empty-pattern
-        getRooms().then(setRooms as () => unknown);
-    }, [getRooms]);
+        if(rooms === roomsInitialState)
+            getRooms().then(setRooms as () => unknown);
+    }, [getRooms, rooms]);
 
     return (
         <>
