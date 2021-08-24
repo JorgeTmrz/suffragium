@@ -11,8 +11,10 @@ import { LoginUser } from "./helpers/LoginTypes";
 import { LoginForm } from "./components/LoginForm";
 import { validInputType, validSubmitType } from "../../helpers/validInputType";
 import Alert from "@material-ui/lab/Alert";
+import { useFirebaseUsers } from '../../firebase/hooks/useFirebaseUsers';
 
 export const LoginPage = () => {
+    const {loginAdminUser} = useFirebaseUsers();
     const classes = LoginPageStyles();
     const [errorMessage, setErrorMessage] = useState("");
     const [loginState, setLoginState] = useState<LoginUser>({
@@ -31,7 +33,7 @@ export const LoginPage = () => {
 
     const handleLoginSubmission = (params: validSubmitType) => {
         if (loginState.email && loginState.password) {
-            
+            loginAdminUser(loginState, setErrorMessage as Function)
         } else setErrorMessage("Asegurese de llenar todos los campos");
     };
 

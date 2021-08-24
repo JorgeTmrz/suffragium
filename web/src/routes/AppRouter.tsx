@@ -1,17 +1,27 @@
 import { Switch } from "react-router";
 import { PublicRoute } from "./PublicRoute";
 import { PrivateRoute } from "./PrivateRoute";
-import Dashboard from "../pages/admin/BasePage";
 import { ThemeProvider } from "@material-ui/core";
 import { useAppTheme } from "../pages/auth/hooks/useAppTheme";
-import { useContext } from 'react';
-import { FirebaseContext } from '../firebase/components/FirebaseProvider';
-import { LoginPage } from '../pages/auth/LoginPage';
+import { LoginPage } from "../pages/auth/LoginPage";
+import { useSelector } from "react-redux";
+import { rootState } from "../redux";
+import BasePage from '../pages/admin/BasePage';
+import { useEffect } from 'react';
+import { useFirebaseUsers } from '../firebase/hooks/useFirebaseUsers';
 
 export const AppRouter = () => {
+    const {checkIfToken} = useFirebaseUsers();
+    const user = useSelector<rootState>(
+        (state) => state.app.user.uid
+    );
+
     const theme = useAppTheme();
-    const firebase = useContext(FirebaseContext);
-    const isAuth = !!firebase.auth().currentUser
+    const isAuth = !!user;
+
+    useEffect(() => {
+        checkIfToken()
+    }, [checkIfToken])
 
     return (
         <ThemeProvider theme={theme}>
@@ -26,7 +36,7 @@ export const AppRouter = () => {
                 <PrivateRoute
                     rest={{}}
                     isAuthenticated={isAuth}
-                    Component={Dashboard}
+                    Component={BasePage}
                     path="/"
                 />
             </Switch>
