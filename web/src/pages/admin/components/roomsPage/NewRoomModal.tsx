@@ -6,15 +6,17 @@ import {
     DialogTitle,
     Typography,
 } from "@material-ui/core";
-// @ts-ignore  
+// @ts-ignore
 import Alert from "@material-ui/lab/Alert";
 import { NewRoomModalProps } from "../../helpers/types/rooms";
 import { RoomsModalForm } from "./RoomsModalForm";
 import { QuestionsList } from "./QuestionsList";
 import { useRooms } from "../../hooks/useRooms";
-import { RoomUsers } from "../RoomUsers";
+import { roomPageStyles } from "../../helpers/styles/RoomPageStyles";
+import { UsersTable } from "./UsersTable";
 
 export const NewRoomModal = ({ handleClose, show }: NewRoomModalProps) => {
+    const classes = roomPageStyles();
     const {
         deleteQuestion,
         currentQuestion,
@@ -23,6 +25,8 @@ export const NewRoomModal = ({ handleClose, show }: NewRoomModalProps) => {
         handleCurrentQuestionChange,
         handleCurrentRoomChange,
         pushQuestion,
+        setParticipants,
+        handleQuestionSubmission,
     } = useRooms();
 
     return (
@@ -47,10 +51,19 @@ export const NewRoomModal = ({ handleClose, show }: NewRoomModalProps) => {
                     currentRoom={currentRoom}
                     deleteQuestion={deleteQuestion}
                 />
-                <RoomUsers/>
+                <Typography className={classes.textSubtitle} variant="body1">
+                    Usuarios de la sala
+                </Typography>
+                <UsersTable onCheckboxClick={setParticipants as any} />
             </DialogContent>
             <DialogActions>
-                <Button onClick={() => {}} variant="contained" color="primary">
+                <Button
+                    onClick={() => {
+                        handleQuestionSubmission(handleClose);
+                    }}
+                    variant="contained"
+                    color="primary"
+                >
                     Comenzar Reunión
                 </Button>
             </DialogActions>

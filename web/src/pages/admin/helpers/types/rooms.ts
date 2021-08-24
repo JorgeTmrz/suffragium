@@ -16,8 +16,15 @@ export const roomQuestionInitialState: roomQuestion = {
 export type currentRoom = {
     endDate: number | null;
     beginDate: number | null;
-    roomTitle: string;
+    title: string;
     ended: boolean;
-    users: any[];
     questions: roomQuestion[];
 };
+
+export const roomInitialState = {
+    beginDate: null,
+    endDate: null,
+    title: "",
+    ended: false,
+    questions: [],
+}

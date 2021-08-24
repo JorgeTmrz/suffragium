@@ -39,10 +39,10 @@ export const RoomsModalForm = ({
             <Grid item sm={8}>
                 <TextField
                     onChange={handleCurrentRoomChange}
-                    value={currentRoom.roomTitle}
+                    value={currentRoom.title}
                     required
-                    id="roomTitle"
-                    name="roomTitle"
+                    id="title"
+                    name="title"
                     label="Titulo de la agenda"
                     fullWidth
                 />

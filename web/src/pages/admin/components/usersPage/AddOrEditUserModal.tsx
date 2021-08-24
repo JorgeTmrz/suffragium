@@ -54,7 +54,7 @@ export const AddOrEditUserModal = ({
 
     return (
         <Dialog
-            fullWidth={true}
+            fullWidth
             maxWidth={"sm"}
             open={show}
             onClose={handleClose}
@@ -63,7 +63,7 @@ export const AddOrEditUserModal = ({
                 <Typography variant="h5">{`${currentAction} Usuario`}</Typography>
             </DialogTitle>
             <DialogContent>
-                {errors.length ?
+                {errors?.length ?
                     errors.map((error) => (
                         <Alert variant="outlined" severity="warning" >
                             {error}

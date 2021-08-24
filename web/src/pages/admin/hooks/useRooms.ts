@@ -1,31 +1,27 @@
 import { useState } from "react";
+import { useFirebaseRooms } from "../../../firebase/hooks/useFirebaseRooms";
+import { roomInitialState } from '../helpers/types/rooms';
 import {
     currentRoom,
     roomQuestion,
     roomQuestionInitialState,
 } from "../helpers/types/rooms";
 export const useRooms = () => {
+    const { createRoom } = useFirebaseRooms();
     const [errorMessage, setErrorMessage] = useState("");
-
+    const [participants, setParticipants] = useState([]);
+    const [currentRoom, setCurrentRoom] = useState<currentRoom>(roomInitialState);
     const [currentQuestion, setCurrentQuestion] = useState<roomQuestion>(
         roomQuestionInitialState
     );
 
-    const [currentRoom, setCurrentRoom] = useState<currentRoom>({
-        beginDate: null,
-        endDate: null,
-        roomTitle: "",
-        ended: false,
-        questions: [],
-        users: [],
-    });
 
     const handleCurrentRoomChange = ({
         target: { value, name },
     }: React.ChangeEvent<{ name?: string | undefined; value: unknown }>) => {
         setCurrentRoom((prevState) => ({
             ...prevState,
-            [name ?? "roomTitle"]: value,
+            [name ?? "title"]: value,
         }));
     };
 
@@ -59,13 +55,23 @@ export const useRooms = () => {
         }));
     };
 
+    const handleQuestionSubmission = (submissionCallback: Function) => {
+        if (currentRoom.title && currentRoom.endDate) {
+            createRoom(currentRoom, participants);
+            setCurrentRoom(roomInitialState);
+            submissionCallback();
+        } else setErrorMessage("Faltan campos");
+    };
+
     return {
         currentQuestion,
         currentRoom,
         errorMessage,
-        handleCurrentQuestionChange,
-        handleCurrentRoomChange,
         pushQuestion,
         deleteQuestion,
+        handleCurrentQuestionChange,
+        handleCurrentRoomChange,
+        handleQuestionSubmission,
+        setParticipants,
     };
 };
