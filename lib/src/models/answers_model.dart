@@ -2,7 +2,6 @@ import 'dart:convert';
 
 // import 'package:firebase/firestore.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:votation_app/src/models/answer_enum.dart';
 
 Answers answerFromJson(String str) => Answers.fromJson(json.decode(str));
 

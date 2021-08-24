@@ -52,9 +52,8 @@ class RoomButton extends StatelessWidget {
             ),
             Consumer<Rooms>(
               builder: (context, room, child) => GestureDetector(
-                onTap: () {
-                  Navigator.pushNamed(context, 'list');
-                },
+                onTap: () => Navigator.pushNamed(context, 'list',
+                    arguments: room.questions!.id.trim()),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [

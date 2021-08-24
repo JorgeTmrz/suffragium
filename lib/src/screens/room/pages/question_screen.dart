@@ -13,9 +13,10 @@ import 'package:votation_app/src/screens/room/widgets/question_timer.dart';
 import 'package:votation_app/src/screens/room/widgets/response_buttons.dart';
 
 class QuestionScreen extends StatefulWidget {
-  late final String timer, question;
+  late final String timer, question, answersId;
 
-  QuestionScreen({required this.timer, required this.question});
+  QuestionScreen(
+      {required this.timer, required this.question, required this.answersId});
 
   @override
   _QuestionScreenState createState() => _QuestionScreenState();
@@ -35,92 +36,90 @@ class _QuestionScreenState extends State<QuestionScreen> {
     final theme = Provider.of<ThemeProvider>(context);
     final _h = MediaQuery.of(context).size.height;
 
-    return Consumer<Questions>(
-      builder: (context, questions, child) => StreamProvider<Answers>(
-        create: (_) => AnswerProvider().getAnswers(questions.answers!.id),
-        initialData: Answers(answers: []),
-        catchError: (_, error) => throw error.toString(),
-        child: SafeArea(
-          child: Scaffold(
-            appBar: AppBar(
-              elevation: 0.0,
-              automaticallyImplyLeading: false,
-              title: Consumer<Rooms>(
-                builder: (context, room, child) => Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      room.title,
-                      style: GoogleFonts.montserrat(
-                          fontSize: 30,
-                          color: theme.currentTheme.iconTheme.color),
+    return StreamProvider<Answers>(
+      create: (_) => AnswerProvider().getAnswers(widget.answersId),
+      initialData: Answers(answers: []),
+      catchError: (_, error) => throw error.toString(),
+      child: SafeArea(
+        child: Scaffold(
+          appBar: AppBar(
+            elevation: 0.0,
+            automaticallyImplyLeading: false,
+            title: Consumer<Rooms>(
+              builder: (context, room, child) => Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    room.title,
+                    style: GoogleFonts.montserrat(
+                        fontSize: 30,
+                        color: theme.currentTheme.iconTheme.color),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        room.beginDate.toDate().toString().split(' ')[0],
+                        style: GoogleFonts.montserrat(
+                            fontSize: 18,
+                            color: theme.currentTheme.iconTheme.color),
+                      ),
+                      Text(
+                        _auth.getUserDisplayName() ?? '',
+                        style: GoogleFonts.montserrat(
+                            fontSize: 18,
+                            color: theme.currentTheme.iconTheme.color),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
+          body: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                children: [
+                  QuestionTimer(
+                      theme: theme,
+                      questionName: widget.question,
+                      questionTimer: widget.timer),
+                  Consumer<Answers>(
+                    builder: (context, answers, child) => ResponseButtons(
+                      answers: answers,
+                      answersId: widget.answersId,
+                      question: widget.question,
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  ),
+                  Container(
+                    height: _h * 0.48,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(20)),
+                    ),
+                    child: Column(
                       children: [
-                        Text(
-                          room.beginDate.toDate().toString().split(' ')[0],
-                          style: GoogleFonts.montserrat(
-                              fontSize: 18,
-                              color: theme.currentTheme.iconTheme.color),
-                        ),
-                        Text(
-                          _auth.getUserDisplayName() ?? '',
-                          style: GoogleFonts.montserrat(
-                              fontSize: 18,
-                              color: theme.currentTheme.iconTheme.color),
+                        Text("Resultados de la votación",
+                            style: GoogleFonts.montserrat(fontSize: 30)),
+                        Expanded(
+                          child:
+                              QuestionResultsClass(question: widget.question),
                         ),
                       ],
                     ),
-                  ],
-                ),
+                  ),
+                  const SizedBox(height: 40),
+                ],
               ),
             ),
-            body: SingleChildScrollView(
-              child: Padding(
-                padding: const EdgeInsets.all(16),
-                child: Column(
-                  children: [
-                    QuestionTimer(
-                        theme: theme,
-                        questionName: widget.question,
-                        questionTimer: widget.timer),
-                    Consumer<Answers>(
-                      builder: (context, answers, child) => ResponseButtons(
-                        answers: answers,
-                        answersId: questions.answers!.id,
-                        question: widget.question,
-                      ),
-                    ),
-                    Container(
-                      height: _h * 0.48,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(20)),
-                      ),
-                      child: Column(
-                        children: [
-                          Text("Resultados de la votación",
-                              style: GoogleFonts.montserrat(fontSize: 30)),
-                          Expanded(
-                            child:
-                                QuestionResultsClass(question: widget.question),
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(height: 40),
-                  ],
-                ),
-              ),
-            ),
-            floatingActionButton: ElevatedButton.icon(
-              onPressed: () => Navigator.pop(context),
-              icon: FaIcon(FontAwesomeIcons.chevronRight, color: Colors.white),
-              label: Text(
-                'Ir a la siguiente pregunta',
-                style: GoogleFonts.montserrat(
-                  color: Colors.white,
-                ),
+          ),
+          floatingActionButton: ElevatedButton.icon(
+            onPressed: () => Navigator.pop(context),
+            icon: FaIcon(FontAwesomeIcons.chevronRight, color: Colors.white),
+            label: Text(
+              'Ir a la siguiente pregunta',
+              style: GoogleFonts.montserrat(
+                color: Colors.white,
               ),
             ),
           ),

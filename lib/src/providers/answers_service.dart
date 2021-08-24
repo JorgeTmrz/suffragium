@@ -8,17 +8,7 @@ class AnswersService {
       List<Map<String, dynamic>> jsonAnswers, String answersId) {
     return answers
         .doc(answersId.trim())
-        .update({'users': jsonAnswers})
-        .then((value) => print("Answer Updated"))
-        .catchError((error) => print("Failed to update user: $error"));
-  }
-
-  Future<void> createAnswer(
-      List<Map<String, dynamic>> jsonAnswers, String answersId) {
-    return answers
-        .doc(answersId.trim())
-        .update({'users': jsonAnswers})
-        .then((value) => print("Answer Created"))
-        .catchError((error) => print("Failed to update user: $error"));
+        .update({'users': jsonAnswers}).catchError(
+            (error) => print("Failed to update user: $error"));
   }
 }
