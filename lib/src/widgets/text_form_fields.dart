@@ -19,8 +19,8 @@ class CustomTextFormFields extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(vertical: 12),
-      padding: EdgeInsets.symmetric(horizontal: 23, vertical: 5),
+      margin: const EdgeInsets.symmetric(vertical: 12),
+      padding: const EdgeInsets.symmetric(horizontal: 23, vertical: 5),
       width: MediaQuery.of(context).size.width * 0.9,
       decoration: BoxDecoration(
           color: Colors.indigo.shade200,

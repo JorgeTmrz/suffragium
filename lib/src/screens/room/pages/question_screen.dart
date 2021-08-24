@@ -8,24 +8,16 @@ import 'package:votation_app/src/screens/room/widgets/question_chart.dart';
 // import 'package:votation_app/src/providers/theme_provider.dart';
 import 'package:votation_app/src/screens/room/widgets/response_buttons.dart';
 
-class QuestionScreen extends StatefulWidget {
-  late final String question, questionsId;
-  late final bool questionIsEnded;
-
-  QuestionScreen(
-      {required this.question,
+class QuestionScreen extends StatelessWidget {
+  const QuestionScreen(
+      {Key? key,
+      required this.question,
       required this.questionsId,
-      required this.questionIsEnded});
+      required this.questionIsEnded})
+      : super(key: key);
 
-  @override
-  _QuestionScreenState createState() => _QuestionScreenState();
-}
-
-class _QuestionScreenState extends State<QuestionScreen> {
-  @override
-  void initState() {
-    super.initState();
-  }
+  final String question, questionsId;
+  final bool questionIsEnded;
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +25,7 @@ class _QuestionScreenState extends State<QuestionScreen> {
     final _h = MediaQuery.of(context).size.height;
 
     return StreamProvider<Answers>(
-      create: (_) => AnswerProvider().getAnswers(widget.questionsId),
+      create: (_) => AnswerProvider().getAnswers(this.questionsId),
       initialData: Answers(answers: [], id: ''),
       catchError: (_, error) => throw error.toString(),
       child: SafeArea(
@@ -44,7 +36,7 @@ class _QuestionScreenState extends State<QuestionScreen> {
             title: Padding(
               padding: const EdgeInsets.only(top: 10),
               child: Center(
-                child: Text(widget.question,
+                child: Text(this.question,
                     style: GoogleFonts.montserrat(
                       fontSize: 20,
                     )),
@@ -60,8 +52,8 @@ class _QuestionScreenState extends State<QuestionScreen> {
                     builder: (context, answers, child) => ResponseButtons(
                       answers: answers,
                       answersId: answers.id,
-                      question: widget.question,
-                      questionIsEnded: widget.questionIsEnded,
+                      question: this.question,
+                      questionIsEnded: this.questionIsEnded,
                     ),
                   ),
                   Container(
@@ -74,7 +66,7 @@ class _QuestionScreenState extends State<QuestionScreen> {
                         Text("Resultados de la votación",
                             style: GoogleFonts.montserrat(fontSize: 30)),
                         Expanded(
-                          child: QuestionChart(question: widget.question),
+                          child: QuestionChart(question: this.question),
                         ),
                       ],
                     ),

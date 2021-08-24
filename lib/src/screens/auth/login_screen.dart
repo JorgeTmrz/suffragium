@@ -4,14 +4,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:votation_app/src/providers/auth_service.dart';
 import 'package:votation_app/src/screens/screens.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({Key? key}) : super(key: key);
-
-  @override
-  _LoginScreenState createState() => _LoginScreenState();
-}
-
-class _LoginScreenState extends State<LoginScreen> {
+class LoginScreen extends StatelessWidget {
+  LoginScreen({Key? key}) : super(key: key);
   final AuthService _auth = new AuthService();
 
   @override

@@ -24,7 +24,7 @@ class RoomList extends StatelessWidget {
                   size: 230, color: Colors.white.withOpacity(0.30))),
           Column(
             children: [
-              SizedBox(
+              const SizedBox(
                 height: 80,
                 width: double.infinity,
               ),
@@ -36,8 +36,9 @@ class RoomList extends StatelessWidget {
               Text(_auth.getUserDisplayName() ?? '',
                   style: GoogleFonts.montserrat(
                       fontSize: 25, color: Colors.white)),
-              SizedBox(height: 20),
-              FaIcon(FontAwesomeIcons.calendar, size: 80, color: Colors.white),
+              const SizedBox(height: 20),
+              const FaIcon(FontAwesomeIcons.calendar,
+                  size: 80, color: Colors.white),
             ],
           ),
           Container(

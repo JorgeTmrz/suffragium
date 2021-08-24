@@ -83,8 +83,8 @@ class _AccountScreenState extends State<AccountScreen> {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(Icons.email_outlined, size: 35.0),
-              SizedBox(width: 8),
+              const Icon(Icons.email_outlined, size: 35.0),
+              const SizedBox(width: 8),
               Text(
                 _auth.getUserEmail() ?? '',
                 overflow: TextOverflow.ellipsis,
@@ -98,8 +98,7 @@ class _AccountScreenState extends State<AccountScreen> {
           Expanded(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10),
-              child: ListView(
-                physics: BouncingScrollPhysics(),
+              child: Column(
                 children: [
                   ListTile(
                     title: Text('Ayuda y Soporte',
@@ -121,16 +120,6 @@ class _AccountScreenState extends State<AccountScreen> {
                     subtitle: Text('Cerrar sesión',
                         style: GoogleFonts.montserrat(fontSize: 20)),
                     onTap: () => _auth.onSignOut(context),
-                  ),
-                  SizedBox(height: _h / 5),
-                  TextButton(
-                    onPressed: () =>
-                        Navigator.popAndPushNamed(context, 'signin'),
-                    child: Text(
-                      "Cerrar Sesión",
-                      style: GoogleFonts.montserrat(
-                          fontSize: 20, color: Colors.grey),
-                    ),
                   ),
                 ],
               ),
