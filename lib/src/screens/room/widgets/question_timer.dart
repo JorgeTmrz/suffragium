@@ -31,10 +31,10 @@ class QuestionTimer extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 20),
-        Text(questionName,
-            style: GoogleFonts.montserrat(
-              fontSize: 20,
-            )),
+        // Text(questionName,
+        //     style: GoogleFonts.montserrat(
+        //       fontSize: 20,
+        //     )),
         const SizedBox(height: 25),
       ],
     );

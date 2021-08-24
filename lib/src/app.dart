@@ -36,7 +36,7 @@ class App extends StatelessWidget {
         if (settings.name == 'list') {
           return PageRouteBuilder(
               pageBuilder: (_, __, ___) => QuestionsList(
-                    questionsId: settings.arguments as String,
+                    roomId: settings.arguments as String,
                   ),
               transitionsBuilder: (_, __, ___, child) => child);
         }

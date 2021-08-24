@@ -5,12 +5,14 @@ import 'package:votation_app/src/models/answers_model.dart';
 class AnswerProvider with ChangeNotifier {
   final FirebaseFirestore _db = FirebaseFirestore.instance;
 
-  Stream<Answers> getAnswers(String answersId) async* {
+  Stream<Answers> getAnswers(String questionsId) async* {
     final data = _db
         .collection('Answers')
-        .doc(answersId.trim())
+        .where('questions', isEqualTo: questionsId.trim())
         .snapshots()
-        .map((snap) => Answers.fromJson(snap.data()!));
+        .map((snap) => snap.docs
+            .map((doc) => Answers.fromJson(doc.data(), doc.reference.id))
+            .first);
 
     yield* data;
     notifyListeners();

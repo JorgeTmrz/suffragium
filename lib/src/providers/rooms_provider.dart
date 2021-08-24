@@ -5,12 +5,10 @@ import 'package:votation_app/src/models/rooms_model.dart';
 class RoomsProvider with ChangeNotifier {
   final FirebaseFirestore _db = FirebaseFirestore.instance;
 
-  Stream<Rooms> getRooms() async* {
-    final data = _db
-        .collection('Rooms')
-        .doc('dw4D9APq4N1joShHiBjR')
-        .snapshots()
-        .map((snap) => Rooms.fromJson(snap.data()!));
+  Stream<List<Rooms>> getRooms() async* {
+    final data = _db.collection('Rooms').snapshots().map((snap) => snap.docs
+        .map((doc) => Rooms.fromJson(doc.data(), doc.reference.id))
+        .toList());
 
     yield* data;
     notifyListeners();

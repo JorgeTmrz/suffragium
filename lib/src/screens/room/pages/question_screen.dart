@@ -13,13 +13,13 @@ import 'package:votation_app/src/screens/room/widgets/question_timer.dart';
 import 'package:votation_app/src/screens/room/widgets/response_buttons.dart';
 
 class QuestionScreen extends StatefulWidget {
-  late final String timer, question, answersId;
+  late final String timer, question, questionsId;
   late final bool questionIsEnded;
 
   QuestionScreen(
       {required this.timer,
       required this.question,
-      required this.answersId,
+      required this.questionsId,
       required this.questionIsEnded});
 
   @override
@@ -41,42 +41,21 @@ class _QuestionScreenState extends State<QuestionScreen> {
     final _h = MediaQuery.of(context).size.height;
 
     return StreamProvider<Answers>(
-      create: (_) => AnswerProvider().getAnswers(widget.answersId),
-      initialData: Answers(answers: []),
+      create: (_) => AnswerProvider().getAnswers(widget.questionsId),
+      initialData: Answers(answers: [], id: ''),
       catchError: (_, error) => throw error.toString(),
       child: SafeArea(
         child: Scaffold(
           appBar: AppBar(
             elevation: 0.0,
             automaticallyImplyLeading: false,
-            title: Consumer<Rooms>(
-              builder: (context, room, child) => Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    room.title,
+            title: Padding(
+              padding: const EdgeInsets.only(top: 10),
+              child: Center(
+                child: Text(widget.question,
                     style: GoogleFonts.montserrat(
-                        fontSize: 30,
-                        color: theme.currentTheme.iconTheme.color),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        room.beginDate.toDate().toString().split(' ')[0],
-                        style: GoogleFonts.montserrat(
-                            fontSize: 18,
-                            color: theme.currentTheme.iconTheme.color),
-                      ),
-                      Text(
-                        _auth.getUserDisplayName() ?? '',
-                        style: GoogleFonts.montserrat(
-                            fontSize: 18,
-                            color: theme.currentTheme.iconTheme.color),
-                      ),
-                    ],
-                  ),
-                ],
+                      fontSize: 20,
+                    )),
               ),
             ),
           ),
@@ -92,7 +71,7 @@ class _QuestionScreenState extends State<QuestionScreen> {
                   Consumer<Answers>(
                     builder: (context, answers, child) => ResponseButtons(
                       answers: answers,
-                      answersId: widget.answersId,
+                      answersId: answers.id,
                       question: widget.question,
                       questionIsEnded: widget.questionIsEnded,
                     ),

@@ -2,24 +2,25 @@ import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-Questions questionsFromJson(String str) => Questions.fromJson(json.decode(str));
+Questions questionsFromJson(String str, String id) =>
+    Questions.fromJson(json.decode(str), id);
 
 class Questions {
   Questions({
     required this.questions,
+    required this.id,
     this.room,
-    this.answers,
   });
 
   final List<Question> questions;
-  final DocumentReference? room;
-  final DocumentReference? answers;
+  final String id;
+  final String? room;
 
-  factory Questions.fromJson(Map<String, dynamic> json) => Questions(
+  factory Questions.fromJson(Map<String, dynamic> json, String id) => Questions(
         questions: List<Question>.from(
             json["questions"].map((x) => Question.fromJson(x))),
         room: json["room"],
-        answers: json["answers"],
+        id: id,
       );
 }
 

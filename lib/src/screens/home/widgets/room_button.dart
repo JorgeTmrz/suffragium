@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'package:votation_app/src/models/rooms_model.dart';
 
 class RoomButton extends StatelessWidget {
+  RoomButton({required this.room});
+  final Rooms room;
+
   Widget _getRoomStatusIcon(bool status) {
     final double _s = 40;
     final Color _c = Colors.white;
@@ -50,46 +52,44 @@ class RoomButton extends StatelessWidget {
                 color: Colors.white.withOpacity(0.2),
               ),
             ),
-            Consumer<Rooms>(
-              builder: (context, room, child) => GestureDetector(
-                onTap: () => Navigator.pushNamed(context, 'list',
-                    arguments: room.questions!.id.trim()),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const SizedBox(
-                      height: 90,
-                      width: 20,
+            GestureDetector(
+              onTap: () =>
+                  Navigator.pushNamed(context, 'list', arguments: room.id),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const SizedBox(
+                    height: 90,
+                    width: 20,
+                  ),
+                  _getRoomStatusIcon(room.isEnded),
+                  const SizedBox(width: 20),
+                  Expanded(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Agenda: ${room.title}',
+                          softWrap: true,
+                          maxLines: 3,
+                          overflow: TextOverflow.ellipsis,
+                          textAlign: TextAlign.start,
+                          style: GoogleFonts.montserrat(
+                              fontSize: 20, color: Colors.white),
+                        ),
+                        Text(
+                          "Fecha: ${room.beginDate.toDate().toString().split(' ')[0]}",
+                          style: GoogleFonts.montserrat(
+                              fontSize: 15, color: Colors.white),
+                        ),
+                      ],
                     ),
-                    _getRoomStatusIcon(room.isEnded),
-                    const SizedBox(width: 20),
-                    Expanded(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Agenda: ${room.title}',
-                            softWrap: true,
-                            maxLines: 3,
-                            overflow: TextOverflow.ellipsis,
-                            textAlign: TextAlign.start,
-                            style: GoogleFonts.montserrat(
-                                fontSize: 20, color: Colors.white),
-                          ),
-                          Text(
-                            "Fecha: ${room.beginDate.toDate().toString().split(' ')[0]}",
-                            style: GoogleFonts.montserrat(
-                                fontSize: 15, color: Colors.white),
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(width: 10),
-                    FaIcon(FontAwesomeIcons.chevronRight, color: Colors.white),
-                    const SizedBox(width: 20),
-                  ],
-                ),
+                  ),
+                  const SizedBox(width: 10),
+                  FaIcon(FontAwesomeIcons.chevronRight, color: Colors.white),
+                  const SizedBox(width: 20),
+                ],
               ),
             ),
           ],

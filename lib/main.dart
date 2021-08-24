@@ -18,14 +18,9 @@ Future<void> main() async {
       ChangeNotifierProvider<ThemeProvider>(create: (_) => ThemeProvider(1)),
       ChangeNotifierProvider(create: (_) => QuestionsProvider()),
       ChangeNotifierProvider<RoomsProvider>(create: (_) => RoomsProvider()),
-      StreamProvider<Rooms>(
+      StreamProvider<List<Rooms>>(
         create: (_) => RoomsProvider().getRooms(),
-        initialData: Rooms(
-          beginDate: Timestamp.now(),
-          endDate: Timestamp.now(),
-          isEnded: false,
-          title: '',
-        ),
+        initialData: [],
         catchError: (_, error) => throw error.toString(),
       ),
     ], child: App()),

@@ -8,8 +8,8 @@ import 'package:votation_app/src/providers/theme_provider.dart';
 import 'package:votation_app/src/screens/screens.dart';
 
 class QuestionsList extends StatelessWidget {
-  QuestionsList({this.questionsId = ''});
-  final String questionsId;
+  QuestionsList({this.roomId = ''});
+  final String roomId;
   FaIcon _getQuestionStatusIcon(bool status) {
     switch (status) {
       case true:
@@ -26,8 +26,8 @@ class QuestionsList extends StatelessWidget {
     final theme = Provider.of<ThemeProvider>(context);
 
     return StreamProvider<Questions>(
-      create: (context) => QuestionsProvider().getQuestions(this.questionsId),
-      initialData: Questions(questions: []),
+      create: (context) => QuestionsProvider().getQuestions(this.roomId),
+      initialData: Questions(questions: [], id: ''),
       catchError: (_, error) => throw error.toString(),
       child: Scaffold(
         appBar: AppBar(
@@ -66,8 +66,8 @@ class QuestionsList extends StatelessWidget {
                                           .replaceRange(0, 4, '')
                                           .replaceRange(4, 8, ''),
                                       question: question.title,
-                                      answersId: questions.answers!.id.trim(),
                                       questionIsEnded: question.isEnded,
+                                      questionsId: questions.id,
                                     ),
                                   ),
                                 );
