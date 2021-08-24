@@ -25,7 +25,7 @@ export const MainListItems = () => {
             <ListItem
                 button
                 onClick={() => {
-                    history.push("usuarios");
+                    history.push("/usuarios");
                 }}
             >
                 <ListItemIcon>
@@ -37,7 +37,7 @@ export const MainListItems = () => {
             <ListItem
                 button
                 onClick={() => {
-                    history.push("ajustes");
+                    history.push("/ajustes");
                 }}
             >
                 <ListItemIcon>
