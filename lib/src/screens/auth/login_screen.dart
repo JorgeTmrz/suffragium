@@ -1,10 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:votation_app/src/providers/auth_service.dart';
+import 'package:votation_app/src/screens/screens.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
+  const LoginScreen({Key? key}) : super(key: key);
+
+  @override
+  _LoginScreenState createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  final AuthService _auth = new AuthService();
+
   @override
   Widget build(BuildContext context) {
+    var isLoggedIn = _auth.auth.currentUser;
+    if (isLoggedIn != null) {
+      return HomeScreen();
+    }
     final double _h = MediaQuery.of(context).size.height;
     final double _w = MediaQuery.of(context).size.width;
 
@@ -43,8 +58,7 @@ class LoginScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                onPressed: () =>
-                    Navigator.pushReplacementNamed(context, 'signin')),
+                onPressed: () => Navigator.pushNamed(context, 'signin')),
           ),
           const SizedBox(height: 17),
           Container(
@@ -61,8 +75,7 @@ class LoginScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                onPressed: () =>
-                    Navigator.pushReplacementNamed(context, 'signup')),
+                onPressed: () => Navigator.pushNamed(context, 'signup')),
           ),
         ],
       ),
