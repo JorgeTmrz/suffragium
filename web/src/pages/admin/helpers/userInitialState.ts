@@ -6,4 +6,5 @@ export const userInitialState = {
     password: "",
     confirmPassword: "",
     period: new Date().getFullYear(),
+    id: ""
 };

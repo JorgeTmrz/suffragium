@@ -23,7 +23,7 @@ export const useFirebaseUsers = () => {
                 .firestore()
                 .collection("Users")
                 .doc(newUser.user?.uid)
-                .set(cleanUser);
+                .set({...cleanUser, id: newUser.user?.uid});
         },
         [firebase]
     );
