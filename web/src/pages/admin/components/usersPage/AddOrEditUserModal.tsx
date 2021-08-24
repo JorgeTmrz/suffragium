@@ -11,6 +11,7 @@ import { useState } from "react";
 import { userInitialState } from "../../helpers/userInitialState";
 import { AddOrEditUserForm } from "./AddOrEditUserForm";
 import { userValidationSchema } from "../../helpers/usersInitialState";
+import Alert from "@material-ui/lab/Alert";
 
 type AddOrEditUserModalProps = {
     id?: number;
@@ -27,6 +28,7 @@ export const AddOrEditUserModal = ({
 }: AddOrEditUserModalProps) => {
     const currentAction = id ? "Editar" : "Crear";
     const [currentUser, setCurrentUser] = useState(userInitialState);
+    const [errors, setErrors] = useState<string[]>([]);
 
     const handleInputChange = ({
         target: { value, name },
@@ -39,13 +41,15 @@ export const AddOrEditUserModal = ({
 
     const handleSubmission = () => {
         userValidationSchema
-            .validate(currentUser)
+            .validate(currentUser, { abortEarly: false })
             .then(async (values) => {
                 setCurrentUser(userInitialState);
                 handleClose();
                 await submissionCallback(values);
             })
-            .catch((reason) => console.log(reason));
+            .catch(({ errors }) => {
+                setErrors(errors);
+            });
     };
 
     return (
@@ -59,6 +63,12 @@ export const AddOrEditUserModal = ({
                 <Typography variant="h5">{`${currentAction} Usuario`}</Typography>
             </DialogTitle>
             <DialogContent>
+                {errors.length ?
+                    errors.map((error) => (
+                        <Alert variant="outlined" severity="warning" >
+                            {error}
+                        </Alert>
+                    )) : null}
                 <AddOrEditUserForm
                     currentUser={currentUser}
                     handleChange={handleInputChange}

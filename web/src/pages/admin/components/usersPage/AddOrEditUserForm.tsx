@@ -13,7 +13,7 @@ export const AddOrEditUserForm = ({handleChange, currentUser}: AddOrEditUserForm
     const classes = AddOrEditUserModalStyles();
 
     return (
-        <Grid container spacing={3}>
+        <Grid container spacing={3} style={{paddingTop: "20px"}}>
             <Grid item xs={12} sm={6}>
                 <TextField
                     onChange={handleChange}
