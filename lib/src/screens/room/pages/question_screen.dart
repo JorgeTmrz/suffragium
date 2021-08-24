@@ -14,9 +14,13 @@ import 'package:votation_app/src/screens/room/widgets/response_buttons.dart';
 
 class QuestionScreen extends StatefulWidget {
   late final String timer, question, answersId;
+  late final bool questionIsEnded;
 
   QuestionScreen(
-      {required this.timer, required this.question, required this.answersId});
+      {required this.timer,
+      required this.question,
+      required this.answersId,
+      required this.questionIsEnded});
 
   @override
   _QuestionScreenState createState() => _QuestionScreenState();
@@ -90,6 +94,7 @@ class _QuestionScreenState extends State<QuestionScreen> {
                       answers: answers,
                       answersId: widget.answersId,
                       question: widget.question,
+                      questionIsEnded: widget.questionIsEnded,
                     ),
                   ),
                   Container(

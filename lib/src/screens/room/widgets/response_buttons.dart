@@ -8,10 +8,14 @@ import 'package:votation_app/src/providers/auth_service.dart';
 
 class ResponseButtons extends StatefulWidget {
   const ResponseButtons(
-      {required this.answers, required this.answersId, required this.question});
+      {required this.answers,
+      required this.answersId,
+      required this.question,
+      required this.questionIsEnded});
   final Answers answers;
   final String answersId;
   final String question;
+  final bool questionIsEnded;
   @override
   _ResponseButtonsState createState() => _ResponseButtonsState();
 }
@@ -126,7 +130,9 @@ class _ResponseButtonsState extends State<ResponseButtons> {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: _buttonMap.keys
                 .map((key) => ElevatedButton.icon(
-                      onPressed: () => _setButtonState(key),
+                      onPressed: widget.questionIsEnded
+                          ? null
+                          : () => _setButtonState(key),
                       icon: key == "Si"
                           ? FaIcon(FontAwesomeIcons.thumbsUp)
                           : key == "No"
@@ -139,9 +145,11 @@ class _ResponseButtonsState extends State<ResponseButtons> {
                 .toList()),
         const SizedBox(height: 30),
         Text(
-          value == ""
-              ? "No ha seleccionado ninguna opción"
-              : "Usted ha seleccionado: $value",
+          widget.questionIsEnded
+              ? 'Esta pregunta ha finalizado'
+              : value == ""
+                  ? "No ha seleccionado ninguna opción"
+                  : "Usted ha seleccionado: $value",
           style: GoogleFonts.montserrat(fontSize: 20),
         ),
         const SizedBox(height: 30),

@@ -67,6 +67,7 @@ class QuestionsList extends StatelessWidget {
                                           .replaceRange(4, 8, ''),
                                       question: question.title,
                                       answersId: questions.answers!.id.trim(),
+                                      questionIsEnded: question.isEnded,
                                     ),
                                   ),
                                 );
