@@ -4,7 +4,7 @@ import TextField from "@material-ui/core/TextField";
 import { Button, InputLabel, MenuItem, Select } from "@material-ui/core";
 import { Add } from "@material-ui/icons";
 import { roomPageStyles } from "../../helpers/styles/RoomPageStyles";
-import { currentRoom, roomQuestion } from "../../helpers/types/rooms";
+import { roomQuestion, roomType } from "../../helpers/types/rooms";
 
 type RoomsModalFormTypes = {
     handleCurrentRoomChange: ({
@@ -20,7 +20,7 @@ type RoomsModalFormTypes = {
         value: unknown;
     }>) => void;
     pushQuestion: () => void;
-    currentRoom: currentRoom;
+    currentRoom: roomType;
     currentQuestion: roomQuestion;
 };
 

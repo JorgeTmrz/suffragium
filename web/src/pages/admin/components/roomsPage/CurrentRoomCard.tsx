@@ -10,12 +10,20 @@ import {
 } from "@material-ui/core";
 import { WatchSharp } from "@material-ui/icons";
 import React from "react";
+import { useHistory } from "react-router-dom";
 
-export const CurrentRoomCard = () => {
+type CurrentRoomType = {
+    title: string;
+    date: string;
+    roomId: string;
+};
+
+export const CurrentRoomCard = ({ date, roomId, title }: CurrentRoomType) => {
+    const history = useHistory();
     const RootPageStyles = makeStyles({
         card: {
             width: "30%",
-            minWidth: "250px"
+            minWidth: "250px",
         },
         buttonGrid: {
             display: "flex",
@@ -23,11 +31,14 @@ export const CurrentRoomCard = () => {
             marginBottom: "10px",
         },
     });
-
     const classes = RootPageStyles();
 
+    const handleRoomJoining = (roomId: string) => {
+        history.push(`sala/${roomId}`);
+    };
+
     return (
-        <Grid container alignItems="center" justifyContent="center">
+        <Grid item alignItems="center" justifyContent="center">
             <Card className={classes.card} variant="elevation">
                 <CardHeader
                     avatar={
@@ -35,13 +46,19 @@ export const CurrentRoomCard = () => {
                             <WatchSharp color="secondary" />
                         </Avatar>
                     }
-                    title={<Typography variant="h6">Reunión Actual</Typography>}
-                    subheader={new Date().toLocaleDateString()}
+                    title={<Typography variant="h6">{title}</Typography>}
+                    subheader={new Date(date).toLocaleDateString()}
                 />
                 <CardContent>
-                    <Grid>Pregunta Actual 1 / 10</Grid>
                     <Grid className={classes.buttonGrid} alignContent="center">
-                        <Button fullWidth variant="contained" color="primary">
+                        <Button
+                            onClick={() => {
+                                handleRoomJoining(roomId);
+                            }}
+                            fullWidth
+                            variant="contained"
+                            color="primary"
+                        >
                             Entrar a la reunión
                         </Button>
                     </Grid>

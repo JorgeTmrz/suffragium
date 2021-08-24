@@ -1,20 +1,15 @@
 import { useState } from "react";
 import { useFirebaseRooms } from "../../../firebase/hooks/useFirebaseRooms";
-import { roomInitialState } from '../helpers/types/rooms';
-import {
-    currentRoom,
-    roomQuestion,
-    roomQuestionInitialState,
-} from "../helpers/types/rooms";
+import { roomInitialState, roomType } from "../helpers/types/rooms";
+import { roomQuestion, roomQuestionInitialState } from "../helpers/types/rooms";
 export const useRooms = () => {
     const { createRoom } = useFirebaseRooms();
     const [errorMessage, setErrorMessage] = useState("");
     const [participants, setParticipants] = useState([]);
-    const [currentRoom, setCurrentRoom] = useState<currentRoom>(roomInitialState);
+    const [currentRoom, setCurrentRoom] = useState<roomType>(roomInitialState);
     const [currentQuestion, setCurrentQuestion] = useState<roomQuestion>(
         roomQuestionInitialState
     );
-
 
     const handleCurrentRoomChange = ({
         target: { value, name },

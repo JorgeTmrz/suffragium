@@ -1,5 +1,5 @@
 import React from "react";
-import { currentRoom } from "../../helpers/types/rooms";
+import { roomType } from "../../helpers/types/rooms";
 import { Divider } from "@material-ui/core";
 import ListItem from "@material-ui/core/ListItem";
 import Typography from "@material-ui/core/Typography";
@@ -10,7 +10,7 @@ import { roomPageStyles } from "../../helpers/styles/RoomPageStyles";
 import List from "@material-ui/core/List";
 
 type QuestionsListTypes = {
-    currentRoom: currentRoom;
+    currentRoom: roomType;
     deleteQuestion: Function;
 };
 

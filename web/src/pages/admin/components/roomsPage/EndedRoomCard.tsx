@@ -18,16 +18,18 @@ import { useRef } from "react";
 type endedRoomProps = {
     topic?: string;
     date?: string;
-    participants?: number;
+    participants?: Object;
 };
 
 export const EndedRoomCard = ({
     topic = "test",
-    participants = 0,
+    participants = Object,
     date = "2020-2024",
 }: endedRoomProps) => {
     const [isOpenMenu, setIsOpenMenu] = useState(false);
     const anchorEl = useRef(null);
+
+    const participantsNumber = Object.keys(participants ?? {}).length;
 
     const handleMenuOpen = () => {
         setIsOpenMenu(!isOpenMenu);
@@ -65,8 +67,8 @@ export const EndedRoomCard = ({
                             <CheckSharp />
                         </Avatar>
                     }
-                    title={date}
-                    subheader={`${participants} participantes`}
+                    title={new Date(date).toDateString()}
+                    subheader={`${participantsNumber} participantes`}
                 ></CardHeader>
                 <CardContent>
                     <Box>
